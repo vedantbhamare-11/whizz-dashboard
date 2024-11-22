@@ -1,6 +1,5 @@
-// ./app/dashboard/page.tsx
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 import OrderSection from "@/components/dashboard/OrderSection";
@@ -9,6 +8,15 @@ import UpcomingOrdersSection from "@/components/dashboard/UpcomingOrdersSection"
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Handle screen size changes
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize(); // Check on component mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="flex flex-col h-screen">
@@ -32,7 +40,8 @@ const Dashboard = () => {
         <main className="flex-1 bg-gray-50 p-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <OrderSection />
-            <MapSection />
+            {/* Conditionally render MapSection */}
+            {!isMobile && <MapSection />}
           </div>
           <UpcomingOrdersSection />
         </main>
