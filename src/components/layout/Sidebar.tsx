@@ -6,7 +6,6 @@ import { LayoutDashboard, CircleHelp, Package, Settings, X, Bell, User } from "l
 import Image from "next/image";
 
 const Sidebar = ({
-  isOpen,
   onClose,
   className = "",
 }: {
