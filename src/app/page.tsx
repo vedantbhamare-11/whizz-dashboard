@@ -1,17 +1,7 @@
-import Sidebar from "@/components/layout/Sidebar";
-import Header from "@/components/layout/Header";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col h-screen">
-      <Header />
-      <div className="flex flex-1">
-        <Sidebar />
-        <main className="flex-1 bg-gray-50 p-6">
-          <h1 className="text-2xl font-bold">Welcome to Whizz Dashboard</h1>
-          <p className="text-gray-600 mt-2">Manage orders, deliveries, and more.</p>
-        </main>
-      </div>
-    </div>
-  );
+  // Redirect to the dashboard
+  redirect("/dashboard");
+  return null; // This ensures the component doesn't render anything
 }

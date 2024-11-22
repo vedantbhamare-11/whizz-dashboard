@@ -19,7 +19,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-[#F3F3F3]">
       <Header onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
       <div className="flex flex-1">
         {/* Sidebar */}
@@ -37,7 +37,7 @@ const Dashboard = () => {
           } transition-transform lg:relative lg:translate-x-0 lg:block`}
         />
         {/* Main Content */}
-        <main className="flex-1 bg-gray-50 p-6">
+        <main className="flex-1 bg-gray-50 p-2">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <OrderSection />
             {/* Conditionally render MapSection */}
