@@ -14,9 +14,9 @@ const Sidebar = () => {
     <div className="w-64 h-full bg-gray-100 shadow-md p-4">
       <nav className="space-y-8">
         <Link
-          href="/"
+          href="/dashboard"
           className={`flex items-center space-x-4 ml-4 ${
-            isActive("/") ? "text-black" : "text-gray-500"
+            isActive("/dashboard") ? "text-black" : "text-gray-500"
           }`}
         >
           <LayoutDashboard className="w-6 h-6" />
