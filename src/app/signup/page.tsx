@@ -7,8 +7,69 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { CheckedState } from "@radix-ui/react-checkbox";
 
 const SignUpPage = () => {
+  const router = useRouter();
+
+  // Form state
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+
+  // Error state
+  const [errors, setErrors] = useState({
+    name: "",
+    phone: "",
+    terms: "",
+  });
+
+  // Validation logic
+  const validateInputs = () => {
+    let valid = true;
+    const newErrors = { name: "", phone: "", terms: "" };
+
+    if (!name.trim()) {
+      newErrors.name = "Name is required.";
+      valid = false;
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+      newErrors.phone = "Phone number must be 10 digits.";
+      valid = false;
+    }
+
+    if (!isTermsChecked) {
+      newErrors.terms = "You must agree to the terms and conditions.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  // Handle Sign Up
+  const handleSignUp = () => {
+    if (validateInputs()) {
+      // Navigate to OTP Verification screen
+      router.push("/otp-verification");
+    }
+  };
+
+  // Restrict input to numeric values only
+  const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    setPhone(value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!/^\d$/.test(e.key)) {
+      e.preventDefault(); // Prevent non-numeric input
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen bg-[#F3F3F3]">
       {/* Header without Bell, User Icon, Switch, and Hamburger */}
@@ -34,7 +95,10 @@ const SignUpPage = () => {
                   type="text"
                   placeholder="Enter your name"
                   className="mt-1 placeholder:text-[#B3B3B3]"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
 
               {/* Phone Number Field */}
@@ -44,16 +108,25 @@ const SignUpPage = () => {
                 </Label>
                 <Input
                   id="phone"
-                  type="tel"
+                  type="text"
                   placeholder="Enter your phone number"
                   className="mt-1 placeholder:text-[#B3B3B3]"
+                  value={phone}
+                  onChange={handlePhoneInput}
+                  onKeyPress={handleKeyPress}
+                  maxLength={10} // Limit to 10 digits
                 />
+                {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
               </div>
             </div>
 
             {/* Checkbox */}
             <div className="flex items-start mt-4 space-x-2">
-              <Checkbox id="terms" />
+              <Checkbox
+                id="terms"
+                checked={isTermsChecked}
+                onCheckedChange={(checked: CheckedState) => setIsTermsChecked(checked === true)}
+              />
               <Label htmlFor="terms" className="text-sm">
                 I agree to the{" "}
                 <Link href="/terms" className="hover:underline">
@@ -61,10 +134,13 @@ const SignUpPage = () => {
                 </Link>
               </Label>
             </div>
+            {errors.terms && <p className="text-red-500 text-sm mt-1">{errors.terms}</p>}
           </CardContent>
           <CardFooter className="flex flex-col items-center space-y-4">
             {/* Sign Up Button */}
-            <Button className="w-full rounded-lg text-base">Sign Up</Button>
+            <Button className="w-full rounded-lg text-base" onClick={handleSignUp}>
+              Sign Up
+            </Button>
 
             {/* Sign In Link */}
             <p className="text-sm text-gray-600">
