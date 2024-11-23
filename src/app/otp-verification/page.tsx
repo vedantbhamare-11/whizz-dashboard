@@ -84,7 +84,7 @@ const OTPVerificationPage = () => {
       // Redirect to dashboard after 3 seconds
       setTimeout(() => {
         router.push("/dashboard");
-      }, 3000);
+      }, 2000);
     } else {
       setIsOtpValid(false);
     }
