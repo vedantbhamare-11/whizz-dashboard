@@ -1,13 +1,24 @@
 // ./redux/orderSlice.ts
 import { createSlice } from "@reduxjs/toolkit";
 
+export enum OrderType {
+  FOOD = "Food",
+  MEDICINE = "Medicine",
+  CUSTOM_PACKAGE = "Custom Package",
+}
+
+export enum OrderStatus {
+  IN_PROGRESS = "In Progress",
+  PENDING = "Pending",
+}
+
 interface Order {
   id: string;
   customerName: string;
   customerNumber: string;
   eta: string;
-  status: string;
-  type: string;
+  status: OrderStatus;
+  type: OrderType;
   pickup: string;
   delivery: string;
 }
@@ -18,8 +29,8 @@ const initialState: Order[] = [
     customerName: "John Doe",
     customerNumber: "9876543210",
     eta: "15 min",
-    status: "In Progress",
-    type: "Food",
+    status: OrderStatus.IN_PROGRESS,
+    type: OrderType.FOOD,
     pickup: "123 Main St, City Center",
     delivery: "456 Elm St, Suburbia",
   },

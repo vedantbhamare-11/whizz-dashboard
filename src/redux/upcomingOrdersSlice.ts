@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export enum OrderType {
   FOOD = "Food",
   MEDICINE = "Medicine",
-  CUSTOM_DELIVERY = "Custom Delivery",
+  CUSTOM_DELIVERY = "Custom Package",
 }
 
 export enum OrderStatus {
