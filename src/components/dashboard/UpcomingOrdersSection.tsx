@@ -27,7 +27,7 @@ const UpcomingOrdersSection = () => {
         return "bg-[#E8E8E8]";
       case "Medicine":
         return "bg-[#D8FFC6]";
-      case "Custom Delivery":
+      case "Custom Package":
         return "bg-[#FFC370]";
       default:
         return "bg-gray-200";
