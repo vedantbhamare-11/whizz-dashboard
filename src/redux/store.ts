@@ -1,10 +1,12 @@
 // ./redux/store.ts
-import { configureStore } from '@reduxjs/toolkit';
-import orderSlice from './orderSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import orderSlice from "./orderSlice";
+import upcomingOrdersSlice from "./upcomingOrdersSlice";
 
 const store = configureStore({
   reducer: {
     orders: orderSlice,
+    upcomingOrders: upcomingOrdersSlice,
   },
 });
 
