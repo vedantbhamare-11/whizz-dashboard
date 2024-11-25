@@ -186,7 +186,7 @@ const OTPVerificationPage = () => {
         <div
           className={`absolute bg-white rounded-lg flex items-center shadow-md py-2 px-4`}
           style={{
-            top: isMobile ? "85%" : "82%",
+            top: isMobile ? "90%" : "82%",
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "auto",
