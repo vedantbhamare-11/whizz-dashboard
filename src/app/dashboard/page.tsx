@@ -38,7 +38,7 @@ const Dashboard = () => {
           {/* Right Column (60%) */}
           <div className="lg:w-[70%] flex flex-col">
             {/* Top Row (70%) */}
-            <div className=" mb-4">
+            <div className=" h-[60%] mb-4">
               <MapSection />
             </div>
 
