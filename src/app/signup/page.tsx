@@ -73,7 +73,6 @@ const SignUpPage = () => {
   return (
     <div className="flex flex-col h-screen bg-[#F3F3F3]">
       {/* Header without Bell, User Icon, Switch, and Hamburger */}
-      <Header showBell={false} showUser={false} showSwitch={false} showHamburger={false} />
 
       {/* Main Content */}
       <div className="flex items-center justify-center flex-1 px-4 sm:px-6 lg:px-8 bg-gray-50">
