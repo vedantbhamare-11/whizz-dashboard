@@ -30,9 +30,9 @@ const Dashboard = () => {
         <main className="flex-1 p-4 ml-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <OrderSection />
-            {!isMobile && <MapSection />}
+            {/* {!isMobile && <MapSection />} */}
           </div>
-          <UpcomingOrdersSection />
+          {/* <UpcomingOrdersSection /> */}
         </main>
       </div>
     </div>
