@@ -20,6 +20,15 @@ interface UpcomingOrder {
   delivery: string;
 }
 
+
+interface DeliveredOrder {
+  id: string;
+  status: string;
+  type: string;
+  pickup: string;
+  delivery: string;
+}
+
 const initialState: UpcomingOrder[] = [
   {
     id: "0001",
@@ -53,6 +62,16 @@ const upcomingOrdersSlice = createSlice({
     },
     removeUpcomingOrder: (state, action) => {
       return state.filter((order) => order.id !== action.payload.id);
+    },
+  },
+});
+
+const deliveredOrdersSlice = createSlice({
+  name: "deliveredOrders",
+  initialState,
+  reducers: {
+    addDeliveredOrder: (state, action) => {
+      state.push(action.payload);
     },
   },
 });

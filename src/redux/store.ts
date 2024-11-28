@@ -7,6 +7,8 @@ const store = configureStore({
   reducer: {
     orders: orderSlice,
     upcomingOrders: upcomingOrdersSlice,
+    deliveredOrders: upcomingOrdersSlice,
+
   },
 });
 

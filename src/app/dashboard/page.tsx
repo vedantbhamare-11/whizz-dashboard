@@ -28,11 +28,10 @@ const Dashboard = () => {
         <Header />
         </div>
         <main className="flex-1 p-4 ml-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <OrderSection />
-            {/* {!isMobile && <MapSection />} */}
+        <OrderSection />
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           </div>
-          {/* <UpcomingOrdersSection /> */}
         </main>
       </div>
     </div>

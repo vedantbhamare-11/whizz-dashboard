@@ -30,7 +30,7 @@ const OrderSection = () => {
   };
 
   return (
-    <div className="h-full space-y-4">
+    <div className="h-full w-full space-y-4">
       {orders.map((order) => (
         <div
           key={order.id}
