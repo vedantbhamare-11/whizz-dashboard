@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { SquareArrowOutUpRight } from "lucide-react";
 
@@ -43,13 +43,12 @@ const UpcomingOrdersSection = () => {
   };
 
   interface Order {
-  id: string;
-  status: string;
-  type: string;
-  pickup: string;
-  delivery: string;
-}
-
+    id: string;
+    status: string;
+    type: string;
+    pickup: string;
+    delivery: string;
+  }
 
   // Function to break the address at commas and preserve the commas
   const formatAddress = (address: string) => {
@@ -64,10 +63,10 @@ const UpcomingOrdersSection = () => {
   };
 
   return (
-    <Card className="mt-4">
+    <div>
       <CardHeader>
-        <CardTitle>Upcoming Orders</CardTitle>
-        <div className="p-1 border rounded-lg flex space-x-4 mt-4">
+        <CardTitle className="mb-4">Upcoming Orders</CardTitle>
+        <div className="p-1 border rounded-lg flex space-x-4">
           <Button
             variant={activeTab === "Upcoming Orders" ? "default" : "ghost"}
             onClick={() => setActiveTab("Upcoming Orders")}
@@ -91,7 +90,7 @@ const UpcomingOrdersSection = () => {
       <CardContent>
         <div className="space-y-4">
           {ordersToDisplay.map((order) => (
-            <Card key={order.id} className="p-4">
+            <div key={order.id} className="p-4 border rounded-lg shadow">
               <div className="flex justify-between items-center mb-4">
                 <div className="flex space-x-2">
                   <span
@@ -150,11 +149,11 @@ const UpcomingOrdersSection = () => {
                   {activeTab === "Upcoming Orders" ? "Accept" : "Delivered"}
                 </Button>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </CardContent>
-    </Card>
+    </div>
   );
 };
 

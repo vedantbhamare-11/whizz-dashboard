@@ -19,18 +19,33 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-full">
-      <Sidebar
-        onClose={() => setIsSidebarOpen(false)}
-        className=""
-      />
-      <div className="flex-1 flex flex-col">
-        <div className="mb-16">
-        <Header />
-        </div>
-        <main className="flex-1 p-4 ml-24">
-        <OrderSection />
+      {/* Sidebar */}
+      <Sidebar onClose={() => setIsSidebarOpen(false)} />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <div className="mb-[3rem]">
+          <Header />
+        </div>
+
+        {/* Main Content */}
+        <main className="flex-1 p-4 flex ml-[5rem]">
+          {/* Left Column (40%) */}
+          <div className="lg:w-[35%]">
+            <UpcomingOrdersSection />
+          </div>
+
+          {/* Right Column (60%) */}
+          <div className="lg:w-[70%] flex flex-col">
+            {/* Top Row (70%) */}
+            <div className=" mb-4">
+              <MapSection />
+            </div>
+
+            {/* Bottom Row (30%) */}
+            <div className="h-[30%]">
+              <OrderSection />
+            </div>
           </div>
         </main>
       </div>
