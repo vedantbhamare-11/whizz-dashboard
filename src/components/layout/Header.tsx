@@ -1,67 +1,72 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Switch } from "@/components/ui/switch";
-import { Bell, User, Menu } from "lucide-react";
+import { CircleHelp } from "lucide-react";
 import Image from "next/image";
 
-interface HeaderProps {
-  onMenuToggle?: () => void;
-  showSwitch?: boolean; // Controls the visibility of the Online/Offline Switch
-  showBell?: boolean; // Controls the visibility of the Bell icon
-  showUser?: boolean; // Controls the visibility of the User icon
-  showHamburger?: boolean; // Controls the visibility of the Hamburger Menu icon
-}
+// Function to check if the screen size is mobile
+const isMobile = () => window.innerWidth <= 640;
 
-const Header = ({
-  onMenuToggle,
-  showSwitch = true,
-  showBell = true,
-  showUser = true,
-  showHamburger = true,
-}: HeaderProps) => {
+const Header = () => {
   const [isOnline, setIsOnline] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  // Update the isMobileView state on window resize
+  useEffect(() => {
+    const handleResize = () => setIsMobileView(isMobile());
+    
+    // Initialize on load
+    handleResize();
+    
+    // Listen for window resize events
+    window.addEventListener("resize", handleResize);
+    
+    // Clean up the event listener on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
-      {/* Left: Hamburger Menu and Logo */}
-      <div className="flex items-center space-x-4">
-        {showHamburger && onMenuToggle && (
-          <button onClick={onMenuToggle} className="lg:hidden">
-            <Menu className="w-6 h-6 text-gray-600" />
-          </button>
-        )}
+    <div>
+
+      {/* Conditional rendering for mobile and larger screens */}
+      {isMobileView ? (
+        // Mobile layout
+        <div className="w-full fixed top-0 left-0 flex justify-between px-6 py-4 bg-[#3CAE06] z-50">
+      {/* Logo on the left */}
+      <div className="flex items-center">
         <Image
           src="/whizz_logo.png"
           alt="Whizz Logo"
-          width={100}
-          height={40}
+          width={60}
+          height={24}
           className="object-contain"
         />
       </div>
 
-      {/* Right: Switch, Bell, and User */}
-      <div className="flex items-center space-x-6">
-        {/* Online/Offline Switch */}
-        {showSwitch && (
-          <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium text-gray-600">
-              {isOnline ? "Online" : "Offline"}
-            </span>
-            <Switch id="online-status" onCheckedChange={() => setIsOnline(!isOnline)} />
-          </div>
-        )}
-
-        {/* Bell and User Icons */}
-        <div className="hidden lg:flex items-center space-x-6">
-          {showBell && (
-            <div className="relative cursor-pointer">
-              <Bell className="w-6 h-6 text-gray-600 hover:text-gray-800" />
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-            </div>
-          )}
-          {showUser && <User className="w-6 h-6 text-gray-600 hover:text-gray-800 cursor-pointer" />}
-        </div>
+      {/* Right Section: Switch and Help Icon */}
+      <div className="flex items-center space-x-4">
+        <span className="text-sm font-medium text-white">
+          {isOnline ? "Online" : "Offline"}
+        </span>
+        <Switch
+          id="online-status"
+          onCheckedChange={() => setIsOnline(!isOnline)}
+        />
+        <CircleHelp className="text-white w-6 h-6" />
       </div>
+    </div>
+      ) : (
+        // Desktop layout
+        <div className="w-full fixed flex justify-end px-6 py-4 bg-white border-b border-gray-200">
+      <div className="flex items-center space-x-2">
+        <span className="text-sm font-medium text-gray-600">
+          {isOnline ? "Online" : "Offline"}
+        </span>
+        <Switch id="online-status" onCheckedChange={() => setIsOnline(!isOnline)} />
+      </div>
+    </div>
+      )}
     </div>
   );
 };
