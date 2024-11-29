@@ -9,7 +9,7 @@ import UpcomingOrdersSection from "@/components/dashboard/UpcomingOrdersSection"
 import { useLayoutEffect } from "react";
 
 
-const isMobile = () => window.innerWidth <= 840;
+const isMobile = () => window.innerWidth <= 640;
 
 const Dashboard = () => {
   const [isMobileView, setIsMobileView] = useState(false);

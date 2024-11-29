@@ -60,7 +60,7 @@ const UpcomingOrdersSection = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <CardHeader>
+      <CardHeader className="p-1 my-4">
         <CardTitle className="mb-4">Upcoming Orders</CardTitle>
         <div className="p-1 border rounded-lg flex space-x-4">
           <Button
@@ -86,7 +86,7 @@ const UpcomingOrdersSection = () => {
 
       {/* Scrollable Section */}
       <CardContent
-        className="overflow-y-auto"
+        className="overflow-y-auto p-1"
         style={{ maxHeight: "calc(100vh - 260px)" }} // Adjust height as needed
       >
         <div className="space-y-4">
