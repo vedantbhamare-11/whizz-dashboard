@@ -9,7 +9,7 @@ import UpcomingOrdersSection from "@/components/dashboard/UpcomingOrdersSection"
 import { useLayoutEffect } from "react";
 
 
-const isMobile = () => window.innerWidth <= 640;
+const isMobile = () => window.innerWidth <= 820;
 
 const Dashboard = () => {
   const [isMobileView, setIsMobileView] = useState(false);
@@ -38,7 +38,7 @@ const Dashboard = () => {
     <div>
   {isMobileView ? (
     // Mobile layout
-    <div className="flex flex-col h-screen w-hw-full bg-[#F3F3F3]">
+    <div className="flex flex-col h-screen w-hw-full">
       <Header />
       <div className="flex flex-1">
         {/* Sidebar */}
@@ -69,7 +69,7 @@ const Dashboard = () => {
     </div>
   ) : (
 
-    <div className="flex flex-col h-screen bg-[#F3F3F3]">
+    <div className="flex flex-col h-screen">
       <div className="flex h-full">
       {/* Sidebar */}
       <Sidebar />
@@ -88,9 +88,9 @@ const Dashboard = () => {
           </div>
 
           {/* Right Column (60%) */}
-          <div className="lg:w-[70%] flex flex-col">
+          <div className="lg:w-[70%]">
             {/* Top Row (70%) */}
-            <div className=" h-[60%] mb-4">
+            <div className=" h-[57%]">
               <MapSection />
             </div>
 
