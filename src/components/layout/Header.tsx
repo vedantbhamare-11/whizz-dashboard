@@ -12,7 +12,7 @@ const Header = () => {
   const [isOnline, setIsOnline] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
 
-  // Update the isMobileView state on window resize
+ { // Update the isMobileView state on window resize
   useEffect(() => {
     const handleResize = () => setIsMobileView(isMobile());
 
@@ -25,7 +25,7 @@ const Header = () => {
     // Clean up the event listener on unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+}
   return (
     <div>
       {/* Conditional rendering for mobile and larger screens */}
