@@ -53,7 +53,7 @@ const OrderSection = () => {
     <div>
       {isMobileView ? (
         // Mobile layout
-        <div className="h-full w-full space-y-4 mt-16">
+        <div className="h-full w-full space-y-4">
           <h1 className="text-2xl font-bold ml-1">Current Order</h1>
           {orders.map((order) => (
             <div
