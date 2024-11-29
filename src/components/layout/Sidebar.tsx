@@ -10,10 +10,8 @@ import { useEffect, useState } from "react";
 const isMobile = () => window.innerWidth <= 640;
 
 const Sidebar = ({
-  onClose,
   className = "",
 }: {
-  onClose: () => void;
   className?: string;
 }) => {
   const pathname = usePathname();

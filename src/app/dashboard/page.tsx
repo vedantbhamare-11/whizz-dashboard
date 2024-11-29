@@ -1,26 +1,72 @@
+// ./app/dashboard/page.tsx
 "use client";
 import { useState, useEffect } from "react";
-import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
+import Sidebar from "@/components/layout/Sidebar";
 import OrderSection from "@/components/dashboard/OrderSection";
 import MapSection from "@/components/dashboard/MapSection";
 import UpcomingOrdersSection from "@/components/dashboard/UpcomingOrdersSection";
 
-const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
+const isMobile = () => window.innerWidth <= 640;
+
+const Dashboard = () => {
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  // Update the isMobileView state on window resize
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => setIsMobileView(isMobile());
+    
+    // Initialize on load
     handleResize();
+    
+    // Listen for window resize events
     window.addEventListener("resize", handleResize);
+    
+    // Clean up the event listener on unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className="flex h-full">
+
+    <div>
+  {isMobileView ? (
+    // Mobile layout
+    <div className="flex flex-col h-screen w-hw-full bg-[#F3F3F3]">
+      <Header />
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <div className="fixed inset-0 z-40"></div>
+        <Sidebar
+        />
+       {/* Main Content */}
+       <main className="flex-1 p-4 flex flex-col">
+          {/* Stacked Sections for Mobile */}
+          <div className="w-full">
+            {/* Order Section */}
+            <div className="mb-4">
+              <OrderSection />
+            </div>
+
+            {/* Map Section */}
+            <div className="mb-4">
+              <MapSection />
+            </div>
+
+            {/* Upcoming Orders Section */}
+            <div>
+              <UpcomingOrdersSection />
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  ) : (
+
+    <div className="flex flex-col h-screen bg-[#F3F3F3]">
+      <div className="flex h-full">
       {/* Sidebar */}
-      <Sidebar onClose={() => setIsSidebarOpen(false)} />
+      <Sidebar />
 
       <div className="flex-1 flex flex-col">
         {/* Header */}
@@ -50,6 +96,10 @@ const Dashboard = () => {
         </main>
       </div>
     </div>
+    </div>
+  )}
+  </div>
+    
   );
 };
 
