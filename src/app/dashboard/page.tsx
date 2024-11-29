@@ -6,13 +6,19 @@ import Sidebar from "@/components/layout/Sidebar";
 import OrderSection from "@/components/dashboard/OrderSection";
 import MapSection from "@/components/dashboard/MapSection";
 import UpcomingOrdersSection from "@/components/dashboard/UpcomingOrdersSection";
+import { useLayoutEffect } from "react";
 
 
-const isMobile = () => window.innerWidth <= 640;
+const isMobile = () => window.innerWidth <= 840;
 
 const Dashboard = () => {
   const [isMobileView, setIsMobileView] = useState(false);
-
+  useLayoutEffect(() => {
+    const handleResize = () => setIsMobileView(isMobile());
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   // Update the isMobileView state on window resize
   useEffect(() => {
     const handleResize = () => setIsMobileView(isMobile());
