@@ -83,7 +83,7 @@ const OrderSection = () => {
                   </div>
                 </div>
                 <div className="text-sm text-[#808080]">
-                  {format(new Date(), "dd/mm/yyyy")}
+                  {format(new Date(), "dd/MM/yyyy")}
                 </div>
               </div>
 
@@ -210,7 +210,7 @@ const OrderSection = () => {
 
                 <div className="flex items-center space-x-4">
                   <div className="text-sm text-[#808080]">
-                    {format(new Date(), "dd/mm/yyyy")}
+                    {format(new Date(), "dd/MM/yyyy")}
                   </div>
                   <div
                     className={`text-sm px-2 py-1 rounded-full text-[#000000] ${

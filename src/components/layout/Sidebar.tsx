@@ -77,7 +77,7 @@ const Sidebar = ({
           <div>
             <div className="flex flex-col items-center mb-8">
               <Image
-                src="/whizz_logo.png"
+                src="/whizz_logo_black.png"
                 alt="Whizz Logo"
                 width={60}
                 height={24}

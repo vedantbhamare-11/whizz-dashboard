@@ -4,6 +4,7 @@ import { RootState } from "@/redux/store";
 import { CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { SquareArrowOutUpRight } from "lucide-react";
+import { format } from "date-fns";
 
 const UpcomingOrdersSection = () => {
   const [activeTab, setActiveTab] = useState("Upcoming Orders");
@@ -113,7 +114,7 @@ const UpcomingOrdersSection = () => {
                     </span>
                   </div>
                   <span className="text-sm">
-                    {new Date().toLocaleDateString()}
+                  {format(new Date(), "MM/dd/yyyy")}
                   </span>
                 </div>
                 <div className="font-semibold mb-2">Order ID: #{order.id}</div>

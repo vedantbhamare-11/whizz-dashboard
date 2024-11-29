@@ -35,7 +35,7 @@ const Header = () => {
           {/* Logo on the left */}
           <div className="flex items-center">
             <Image
-              src="/whizz_logo.png"
+              src="/whizz_logo_white.png"
               alt="Whizz Logo"
               width={60}
               height={24}
