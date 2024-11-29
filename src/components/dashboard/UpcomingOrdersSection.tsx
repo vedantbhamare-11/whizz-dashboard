@@ -87,78 +87,83 @@ const UpcomingOrdersSection = () => {
 
       {/* Scrollable Section */}
       <CardContent
-        className="overflow-y-auto"
-        style={{ maxHeight: "calc(100vh - 260px)" }} // Adjust height as needed
-      >
-        <div className="space-y-4">
-          {ordersToDisplay.length === 0 ? (
-            <div>No orders to display</div>
-          ) : (
-            ordersToDisplay.map((order) => (
-              <div key={order.id} className="p-4 border rounded-lg shadow">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex space-x-2">
-                    <span
-                      className={`text-sm py-1 px-2 rounded-full ${getStatusColor(
-                        order.status
-                      )}`}
-                    >
-                      {order.status}
-                    </span>
-                    <span
-                      className={`text-sm py-1 px-2 rounded-full ${getTypeColor(
-                        order.type
-                      )}`}
-                    >
-                      {order.type}
-                    </span>
-                  </div>
-                  <span className="text-sm">
-                  {format(new Date(), "MM/dd/yyyy")}
-                  </span>
-                </div>
-                <div className="font-semibold mb-2">Order ID: #{order.id}</div>
-                <div className="grid grid-cols-2 gap-4 items-center">
-                  <div>
-                    <span className="font-semibold flex items-center">
-                      Pickup{" "}
-                      <Button variant="link" className="p-0 text-sm">
-                        <SquareArrowOutUpRight className="w-4 h-4 ml-1" />
-                      </Button>
-                    </span>
-                    <div className="flex items-center space-x-2">
-                      <span>{formatAddress(order.pickup)}</span>
-                    </div>
-                  </div>
-                  <div className="border-l pl-4">
-                    <span className="font-semibold flex items-center">
-                      Delivery{" "}
-                      <Button variant="link" className="p-0 text-sm">
-                        <SquareArrowOutUpRight className="w-4 h-4 ml-1" />
-                      </Button>
-                    </span>
-                    <div className="flex items-center space-x-2">
-                      <span>{formatAddress(order.delivery)}</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <Button
-                    className={`rounded-full w-full px-4 py-2 ${
-                      activeTab === "Upcoming Orders"
-                        ? "bg-[#3CAE06] text-white"
-                        : "bg-[#ECECEC] text-gray-500"
-                    }`}
-                    disabled={activeTab === "Delivered"}
-                  >
-                    {activeTab === "Upcoming Orders" ? "Accept" : "Delivered"}
-                  </Button>
-                </div>
+  className="overflow-y-auto"
+  style={{
+    maxHeight: "calc(100vh - 260px)", 
+    scrollbarWidth: "none", // For Firefox
+    msOverflowStyle: "none", // For Internet Explorer and Edge
+  }}
+>
+  <div className="space-y-4">
+    {ordersToDisplay.length === 0 ? (
+      <div>No orders to display</div>
+    ) : (
+      ordersToDisplay.map((order) => (
+        <div key={order.id} className="p-4 border rounded-lg shadow">
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex space-x-2">
+              <span
+                className={`text-sm py-1 px-2 rounded-full ${getStatusColor(
+                  order.status
+                )}`}
+              >
+                {order.status}
+              </span>
+              <span
+                className={`text-sm py-1 px-2 rounded-full ${getTypeColor(
+                  order.type
+                )}`}
+              >
+                {order.type}
+              </span>
+            </div>
+            <span className="text-sm">
+              {format(new Date(), "MM/dd/yyyy")}
+            </span>
+          </div>
+          <div className="font-semibold mb-2">Order ID: #{order.id}</div>
+          <div className="grid grid-cols-2 gap-4 items-center">
+            <div>
+              <span className="font-semibold flex items-center">
+                Pickup{" "}
+                <Button variant="link" className="p-0 text-sm">
+                  <SquareArrowOutUpRight className="w-4 h-4 ml-1" />
+                </Button>
+              </span>
+              <div className="flex items-center space-x-2">
+                <span>{formatAddress(order.pickup)}</span>
               </div>
-            ))
-          )}
+            </div>
+            <div className="border-l pl-4">
+              <span className="font-semibold flex items-center">
+                Delivery{" "}
+                <Button variant="link" className="p-0 text-sm">
+                  <SquareArrowOutUpRight className="w-4 h-4 ml-1" />
+                </Button>
+              </span>
+              <div className="flex items-center space-x-2">
+                <span>{formatAddress(order.delivery)}</span>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4">
+            <Button
+              className={`rounded-full w-full px-4 py-2 ${
+                activeTab === "Upcoming Orders"
+                  ? "bg-[#3CAE06] text-white"
+                  : "bg-[#ECECEC] text-gray-500"
+              }`}
+              disabled={activeTab === "Delivered"}
+            >
+              {activeTab === "Upcoming Orders" ? "Accept" : "Delivered"}
+            </Button>
+          </div>
         </div>
-      </CardContent>
+      ))
+    )}
+  </div>
+</CardContent>
+
     </div>
   );
 };

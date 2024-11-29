@@ -38,11 +38,11 @@ const Dashboard = () => {
           <Sidebar />
           <div className="flex-1 flex flex-col">
             <Header />
-            <main className="flex-1 p-4 mt-[5rem] ml-[5rem] flex">
+            <main className="flex-1 p-4 mt-[3rem] ml-[5rem] flex">
               <div className="lg:w-[35%] mb-[2rem]">
                 <UpcomingOrdersSection />
               </div>
-              <div className="lg:w-[70%]">
+              <div className="lg:w-[70%] space-y-6">
                 <MapSection />
                 <OrderSection />
               </div>
