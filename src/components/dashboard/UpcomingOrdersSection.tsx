@@ -61,9 +61,9 @@ const UpcomingOrdersSection = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <CardHeader>
+      <CardHeader className="lg:p-6 p-2">
         <CardTitle className="mb-4">Upcoming Orders</CardTitle>
-        <div className="p-1 border rounded-lg flex space-x-4">
+        <div className="p-1 border rounded-lg flex">
           <Button
             variant={activeTab === "Upcoming Orders" ? "default" : "ghost"}
             onClick={() => setActiveTab("Upcoming Orders")}
@@ -87,7 +87,7 @@ const UpcomingOrdersSection = () => {
 
       {/* Scrollable Section */}
       <CardContent
-  className="overflow-y-auto"
+  className="overflow-y-auto lg:px-6 p-0"
   style={{
     maxHeight: "calc(100vh - 260px)", 
     scrollbarWidth: "none", // For Firefox
@@ -99,7 +99,7 @@ const UpcomingOrdersSection = () => {
       <div>No orders to display</div>
     ) : (
       ordersToDisplay.map((order) => (
-        <div key={order.id} className="p-4 border rounded-lg shadow">
+        <div key={order.id} className="p-4 border rounded-lg">
           <div className="flex justify-between items-center mb-4">
             <div className="flex space-x-2">
               <span
