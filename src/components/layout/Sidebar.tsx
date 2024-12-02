@@ -40,20 +40,29 @@ const Sidebar = ({
           <div className="flex justify-around items-center py-4">
             <Link href="/dashboard">
               <div className="flex flex-col items-center">
-                <LayoutDashboard className="w-6 h-6 text-[#808080]" />
-                <span className="text-xs text-[#808080]">Dashboard</span>
+                <LayoutDashboard 
+                  className={`w-6 h-6 ${isActive("/dashboard") ? "text-[#3CAE06]" : "text-[#808080]"}`} 
+                  fill={isActive("/dashboard") ? "#3CAE06" : "none"} 
+                />
+                <span className={`text-xs ${isActive("/dashboard") ? "text-[#3CAE06]" : "text-[#808080]"}`}>Dashboard</span>
               </div>
             </Link>
             <Link href="/orders">
               <div className="flex flex-col items-center">
-                <Package className="w-6 h-6 text-[#808080]" />
-                <span className="text-xs text-[#808080]">Orders</span>
+                <Package 
+                  className={`w-6 h-6 ${isActive("/orders") ? "text-[#3CAE06]" : "text-[#808080]"}`} 
+                  fill={isActive("/orders") ? "#3CAE06" : "none"} 
+                />
+                <span className={`text-xs ${isActive("/orders") ? "text-[#3CAE06]" : "text-[#808080]"}`}>Orders</span>
               </div>
             </Link>
             <Link href="/notifications">
               <div className="flex flex-col items-center">
-                <Bell className="w-6 h-6 text-[#808080]" />
-                <span className="text-xs text-[#808080]">Notifications</span>
+                <Bell 
+                  className={`w-6 h-6 ${isActive("/notifications") ? "text-[#3CAE06]" : "text-[#808080]"}`} 
+                  fill={isActive("/notifications") ? "#3CAE06" : "none"} 
+                />
+                <span className={`text-xs ${isActive("/notifications") ? "text-[#3CAE06]" : "text-[#808080]"}`}>Notifications</span>
               </div>
             </Link>
             <Link href="/profile">
@@ -65,7 +74,7 @@ const Sidebar = ({
                   height={32}
                   className="rounded-full object-cover border-2"
                 />
-                <span className="text-xs text-[#808080]">Profile</span>
+                <span className={`text-xs ${isActive("/profile") ? "text-[#3CAE06]" : "text-[#808080]"}`}>Profile</span>
               </div>
             </Link>
           </div>
