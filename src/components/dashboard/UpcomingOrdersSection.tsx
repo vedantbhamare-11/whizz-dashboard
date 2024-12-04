@@ -89,7 +89,7 @@ const UpcomingOrdersSection = () => {
       <CardContent
   className="overflow-y-auto lg:px-6 p-0"
   style={{
-    maxHeight: "calc(100vh - 260px)", 
+    maxHeight: "calc(100vh - 5rem )", // Subtract the height of the header
     scrollbarWidth: "none", // For Firefox
     msOverflowStyle: "none", // For Internet Explorer and Edge
   }}

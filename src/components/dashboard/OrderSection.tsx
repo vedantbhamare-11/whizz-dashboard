@@ -18,6 +18,7 @@ const OrderSection = () => {
   const [isMobileView, setIsMobileView] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [totalAmount, setTotalAmount] = useState("");
 
   useEffect(() => {
     const handleResize = () => setIsMobileView(isMobile());
@@ -58,7 +59,13 @@ const OrderSection = () => {
       };
     });
   };
-
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Only allow numeric characters (0-9)
+    if (/^\d*$/.test(value)) {
+      setTotalAmount(value);
+    }
+  };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
@@ -220,21 +227,19 @@ const OrderSection = () => {
                     {/* Display file name and success message */}
                     {fileName && uploadSuccess && (
                       <div className="text-xs text-[#3CAE06] mt-2">
-                        <p className="text-green-500 text-sm">Successfully uploaded!</p>
+                        <p className="text-green-500 text-sm">
+                          Successfully uploaded!
+                        </p>
                       </div>
                     )}
                   </div>
-                  <div className="flex flex-row justify-center items-center w-[50%] gap-1">
-                    <IndianRupee
-                      size={24}
-                      className="items-center justify-center"
-                    />
-                    <Input
-                      type="numeric"
-                      className="w-full"
-                      placeholder="Total Amount"
-                    ></Input>
-                  </div>
+                  <Input
+                        type="text" // Use "text" to avoid browser quirks with type="number"
+                        value={totalAmount}
+                        onChange={handleAmountChange} // Handle input change
+                        className="w-auto"
+                        placeholder="Total Amount"
+                      ></Input>
                 </div>
 
                 <Button className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] text-white flex items-center justify-center">
@@ -400,17 +405,13 @@ const OrderSection = () => {
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-row justify-center items-center w-[50%] gap-1">
-                      <IndianRupee
-                        size={24}
-                        className="items-center justify-center"
-                      />
-                      <Input
-                        type="numeric"
-                        className="w-full"
+                    <Input
+                        type="text" // Use "text" to avoid browser quirks with type="number"
+                        value={totalAmount}
+                        onChange={handleAmountChange} // Handle input change
+                        className="w-auto"
                         placeholder="Total Amount"
                       ></Input>
-                    </div>
                   </div>
 
                   <Button className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] text-white flex items-center justify-center">
