@@ -8,12 +8,16 @@ import { format } from "date-fns";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Input } from "../ui/input";
+import { Label } from "@/components/ui/label";
+import { IndianRupee } from "lucide-react";
 
 const isMobile = () => window.innerWidth <= 640;
 
 const OrderSection = () => {
   const [isMobileView, setIsMobileView] = useState(false);
-  
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobileView(isMobile());
@@ -28,25 +32,56 @@ const OrderSection = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-  
   const orders = useSelector((state: RootState) => state.orders);
   const [buttonStates, setButtonStates] = useState<{
-    [key: string]: { pickup: boolean; delivery: boolean };
+    [key: string]: "pickup" | "deliver" | "delivered" | null;
   }>({});
 
-  const handlePickupClick = (orderId: string) => {
-    setButtonStates((prev) => ({
-      ...prev,
-      [orderId]: { pickup: true, delivery: false },
-    }));
+  const handleButtonClick = (orderId: string) => {
+    setButtonStates((prev) => {
+      const currentState = prev[orderId] ?? "pickup"; // Default to 'pickup' if not initialized
+
+      let newState: "pickup" | "deliver" | "delivered" | null;
+
+      // Cycle through states: pickup -> deliver -> delivered
+      if (currentState === "pickup") {
+        newState = "deliver";
+      } else if (currentState === "deliver") {
+        newState = "delivered";
+      } else {
+        newState = null; // Reset to null after delivered (optional)
+      }
+
+      return {
+        ...prev,
+        [orderId]: newState,
+      };
+    });
   };
 
-  const handleDeliveryClick = (orderId: string) => {
-    setButtonStates((prev) => ({
-      ...prev,
-      [orderId]: { pickup: true, delivery: true },
-    }));
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (file) {
+      setFileName(file.name); // Set the file name
+      setUploadSuccess(true); // Set upload success to true
+    }
+  };
+
+  // Function to determine button color based on state
+  const getButtonColor = (state: "pickup" | "deliver" | "delivered" | null) => {
+    const primaryColor = "bg-[#3CAE06]"; // Primary green color
+    const hoverColor = "hover:bg-[#33A305]"; // Slightly darker green for hover
+
+    switch (state) {
+      case "pickup":
+        return `${primaryColor} ${hoverColor} text-white`; // Pickup state with primary color
+      case "deliver":
+        return `${primaryColor} ${hoverColor} text-white`; // Deliver state with primary color
+      case "delivered":
+        return `${primaryColor} ${hoverColor} text-white`; // Delivered state with primary color
+      default:
+        return "bg-green-500 hover:bg-green-600 text-white"; // Default gray for initial state
+    }
   };
 
   return (
@@ -117,26 +152,26 @@ const OrderSection = () => {
                   <div className="text-[#808080] text-sm">{order.eta}</div>
                 </div>
                 <div>
-                <div className="text-lg text-[#050505] flex items-center font-bold">
-                      Pickup
-                      <Button variant="ghost">
-                        <SquareArrowOutUpRight />
-                      </Button>
-                    </div>
+                  <div className="text-lg text-[#050505] flex items-center font-bold">
+                    Pickup
+                    <Button variant="ghost">
+                      <SquareArrowOutUpRight />
+                    </Button>
+                  </div>
                   <div className="text-[#808080] text-sm">
                     {order.pickup.split(",").map((line, index) => (
                       <div key={index}>{line.trim()}</div>
                     ))}
                   </div>
                 </div>
-                
+
                 <div>
-                <div className="text-lg text-[#050505] flex items-center font-bold">
-                      Delivery
-                      <Button variant="ghost">
-                        <SquareArrowOutUpRight />
-                      </Button>
-                    </div>
+                  <div className="text-lg text-[#050505] flex items-center font-bold">
+                    Delivery
+                    <Button variant="ghost">
+                      <SquareArrowOutUpRight />
+                    </Button>
+                  </div>
                   <div className="text-[#808080] text-sm">
                     {order.delivery.split(",").map((line, index) => (
                       <div key={index}>{line.trim()}</div>
@@ -146,43 +181,64 @@ const OrderSection = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="space-y-2">
+              <div className="flex justify-center flex-col items-center w-full space-y-6 p-4">
                 <Button
-                  className={`w-full rounded-full ${
-                    buttonStates[order.id]?.pickup
-                      ? "bg-gray-400 text-white"
-                      : "bg-[#3CAE06] text-white"
-                  }`}
-                  onClick={() => handlePickupClick(order.id)}
-                  disabled={buttonStates[order.id]?.pickup}
+                  className={`w-full rounded-full ${getButtonColor(
+                    buttonStates[order.id]
+                  )}`}
+                  onClick={() => handleButtonClick(order.id)}
+                  disabled={buttonStates[order.id] === "delivered"} // Disable when delivered
                 >
-                  Pickup
+                  {buttonStates[order.id] === "pickup"
+                    ? "Pickup"
+                    : buttonStates[order.id] === "deliver"
+                    ? "Deliver"
+                    : buttonStates[order.id] === "delivered"
+                    ? "Delivered"
+                    : "Pickup"}{" "}
+                  {/* Default text */}
                 </Button>
-                <Button
-                  className={`w-full rounded-full ${
-                    buttonStates[order.id]?.pickup
-                      ? buttonStates[order.id]?.delivery
-                        ? "bg-gray-400 text-white"
-                        : "bg-[#3CAE06] text-white"
-                      : "bg-gray-400 text-white"
-                  }`}
-                  onClick={() => handleDeliveryClick(order.id)}
-                  disabled={
-                    !buttonStates[order.id]?.pickup ||
-                    buttonStates[order.id]?.delivery
-                  }
-                >
-                  Delivery
-                </Button>
-                <Button
-                  className={`w-full rounded-full ${
-                    buttonStates[order.id]?.delivery
-                      ? "bg-[#8BC34A] text-white"
-                      : "bg-gray-400 text-white"
-                  }`}
-                  disabled={!buttonStates[order.id]?.delivery}
-                >
-                  Delivered
+
+                <div className="flex w-full gap-2">
+                  <div className="flex flex-col items-start w-[50%]">
+                    <Button
+                      variant="ghost"
+                      className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] text-white flex items-center justify-center"
+                      onClick={() =>
+                        document.getElementById("picture")?.click()
+                      } // Trigger file input
+                    >
+                      <Input
+                        id="picture"
+                        type="file"
+                        className=" absolute inset-0 opacity-0 cursor-pointer"
+                        onChange={handleFileChange} // Handle file change
+                      />
+                      <span className="text-sm ">Upload Image</span>
+                    </Button>
+
+                    {/* Display file name and success message */}
+                    {fileName && uploadSuccess && (
+                      <div className="text-xs text-[#3CAE06] mt-2">
+                        <p className="text-green-500 text-sm">Successfully uploaded!</p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-row justify-center items-center w-[50%] gap-1">
+                    <IndianRupee
+                      size={24}
+                      className="items-center justify-center"
+                    />
+                    <Input
+                      type="numeric"
+                      className="w-full"
+                      placeholder="Total Amount"
+                    ></Input>
+                  </div>
+                </div>
+
+                <Button className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] text-white flex items-center justify-center">
+                  Submit
                 </Button>
               </div>
             </div>
@@ -299,43 +355,66 @@ const OrderSection = () => {
                   <Separator orientation="vertical" className="h-full" />
                 </div>
 
-                <div className="flex flex-col w-1/2 space-y-6 p-4">
+                <div className="flex justify-center flex-col items-center w-1/2 space-y-6 p-4">
                   <Button
-                    className={`w-full rounded-full ${
-                      buttonStates[order.id]?.pickup
-                        ? "bg-gray-400 text-white"
-                        : "bg-[#3CAE06] text-white"
-                    }`}
-                    onClick={() => handlePickupClick(order.id)}
-                    disabled={buttonStates[order.id]?.pickup}
+                    className={`w-full rounded-full ${getButtonColor(
+                      buttonStates[order.id]
+                    )}`}
+                    onClick={() => handleButtonClick(order.id)}
+                    disabled={buttonStates[order.id] === "delivered"} // Disable when delivered
                   >
-                    Pickup
+                    {buttonStates[order.id] === "pickup"
+                      ? "Pickup"
+                      : buttonStates[order.id] === "deliver"
+                      ? "Deliver"
+                      : buttonStates[order.id] === "delivered"
+                      ? "Delivered"
+                      : "Pickup"}{" "}
+                    {/* Default text */}
                   </Button>
-                  <Button
-                    className={`w-full rounded-full ${
-                      buttonStates[order.id]?.pickup
-                        ? buttonStates[order.id]?.delivery
-                          ? "bg-gray-400 text-white"
-                          : "bg-[#3CAE06] text-white"
-                        : "bg-gray-400 text-white"
-                    }`}
-                    onClick={() => handleDeliveryClick(order.id)}
-                    disabled={
-                      !buttonStates[order.id]?.pickup ||
-                      buttonStates[order.id]?.delivery
-                    }
-                  >
-                    Delivery
-                  </Button>
-                  <Button
-                    className={`w-full rounded-full ${
-                      buttonStates[order.id]?.delivery
-                        ? "bg-[#8BC34A] text-white"
-                        : "bg-gray-400 text-white"
-                    }`}
-                    disabled={!buttonStates[order.id]?.delivery}
-                  >
-                    Delivered
+
+                  <div className="flex flex-row w-full gap-2">
+                    <div className="flex flex-col items-start w-[50%]">
+                      <Button
+                        variant="ghost"
+                        className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] hover:text-white text-white flex items-center justify-center"
+                        onClick={() =>
+                          document.getElementById("picture")?.click()
+                        } // Trigger file input
+                      >
+                        <Input
+                          id="picture"
+                          type="file"
+                          className=" absolute inset-0 opacity-0 cursor-pointer"
+                          onChange={handleFileChange} // Handle file change
+                        />
+                        <span className="text-sm ">Upload Image</span>
+                      </Button>
+
+                      {/* Display file name and success message */}
+                      {fileName && uploadSuccess && (
+                        <div className="text-xs text-[#3CAE06] mt-2">
+                          <p className="text-green-500">
+                            Successfully uploaded!
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-row justify-center items-center w-[50%] gap-1">
+                      <IndianRupee
+                        size={24}
+                        className="items-center justify-center"
+                      />
+                      <Input
+                        type="numeric"
+                        className="w-full"
+                        placeholder="Total Amount"
+                      ></Input>
+                    </div>
+                  </div>
+
+                  <Button className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] text-white flex items-center justify-center">
+                    Submit
                   </Button>
                 </div>
               </div>
