@@ -9,7 +9,6 @@ import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { Label } from "@/components/ui/label";
 import { IndianRupee } from "lucide-react";
 
 const isMobile = () => window.innerWidth <= 640;
@@ -399,7 +398,7 @@ const OrderSection = () => {
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-row justify-center items-center w-auto gap-1">
+                    <div className="flex flex-row justify-center items-center w-[50%] gap-1">
                       <IndianRupee
                         size={24}
                         className="items-center justify-center"
