@@ -31,25 +31,6 @@ const UpcomingOrdersSection = () => {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "In Progress":
-        return "bg-[#FFE18E]";
-      case "Pending":
-        return "bg-[#FF7D7D]";
-      default:
-        return "bg-gray-200";
-    }
-  };
-
-  interface Order {
-    id: string;
-    status: string;
-    type: string;
-    pickup: string;
-    delivery: string;
-  }
-
   const formatAddress = (address: string) => {
     return address.split(",").map((part, index, array) => (
       <span key={index}>
@@ -89,7 +70,7 @@ const UpcomingOrdersSection = () => {
       <CardContent
   className="overflow-y-auto lg:px-6 p-0"
   style={{
-    maxHeight: "calc(100vh - 5rem )", // Subtract the height of the header
+    maxHeight: "calc(100vh - 16rem )", // Subtract the height of the header
     scrollbarWidth: "none", // For Firefox
     msOverflowStyle: "none", // For Internet Explorer and Edge
   }}
@@ -102,13 +83,7 @@ const UpcomingOrdersSection = () => {
         <div key={order.id} className="p-4 border rounded-lg">
           <div className="flex justify-between items-center mb-4">
             <div className="flex space-x-2">
-              <span
-                className={`text-sm py-1 px-2 rounded-full ${getStatusColor(
-                  order.status
-                )}`}
-              >
-                {order.status}
-              </span>
+             
               <span
                 className={`text-sm py-1 px-2 rounded-full ${getTypeColor(
                   order.type
