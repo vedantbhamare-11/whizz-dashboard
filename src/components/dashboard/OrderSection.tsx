@@ -383,10 +383,10 @@ const OrderSection = () => {
                         <Input
                           id="picture"
                           type="file"
-                          className=" absolute inset-0 opacity-0 cursor-pointer"
+                          className="absolute flex opacity-0 cursor-pointer"
                           onChange={handleFileChange} // Handle file change
                         />
-                        <span className="text-sm ">Upload Image</span>
+                        <span className="text-sm">Upload Image</span>
                       </Button>
 
                       {/* Display file name and success message */}
@@ -399,10 +399,7 @@ const OrderSection = () => {
                       )}
                     </div>
                     <div className="flex flex-row justify-center items-center w-[50%] gap-1">
-                      <IndianRupee
-                        size={24}
-                        className="items-center justify-center"
-                      />
+                  
                       <Input
                         type="number"
                         className="w-full"
