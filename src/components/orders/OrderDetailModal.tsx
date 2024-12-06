@@ -29,22 +29,21 @@ const OrderDetailModal = ({ order, onClose }: OrderDetailModalProps) => {
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="lg:max-w-[450px] max-w-[400px] rounded-xl">
-        {/* Delivery type tag */}
-        <div
-          className={`absolute top-12 right-6 text-black text-sm py-1 px-2 rounded-full ${getTypeColor(
-            order.type
-          )}`}
-        >
-          {order.type}
-        </div>
-
-        <DialogHeader className="mt-8">
-          <DialogTitle>Order #{order.id}</DialogTitle>
-        </DialogHeader>
-
         {/* Order Details */}
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
+            <div className="my-6">
+              <DialogTitle className="">Order #{order.id}</DialogTitle>
+            </div>
+            <div>
+              <div
+                className={`absolute top-12 right-6 text-black text-sm py-1 px-2 rounded-full ${getTypeColor(
+                  order.type
+                )}`}
+              >
+                {order.type}
+              </div>
+            </div>
             <div>
               <div className="text-lg text-[#050505] font-bold">
                 Customer Name

@@ -36,7 +36,11 @@ const OrderHistory = () => {
           <div className="flex-1 flex flex-col">
             <Header />
             <main className="flex-1 p-4 mt-[3rem] ml-[5rem]">
-              <OrderHistorySection />
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-1 p-4">
+                  <OrderHistorySection />
+                </div>
+              </div>
             </main>
           </div>
         </div>
