@@ -9,7 +9,6 @@ import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { IndianRupee } from "lucide-react";
 
 const isMobile = () => window.innerWidth <= 640;
 
