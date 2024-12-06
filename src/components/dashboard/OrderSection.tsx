@@ -383,7 +383,7 @@ const OrderSection = () => {
                         <Input
                           id="picture"
                           type="file"
-                          className="absolute z-[-1] flex opacity-0 cursor-pointer"
+                          className="absolute z-[1] w-auto  flex opacity-0 cursor-pointer"
                           onChange={handleFileChange} // Handle file change
                         />
                         <span className="text-sm">Upload Image</span>
@@ -402,7 +402,7 @@ const OrderSection = () => {
                   
                       <Input
                         type="number"
-                        className="w-full"
+                        className="w-full z-[2]"
                         placeholder="Total Amount"
                       ></Input>
                     </div>
