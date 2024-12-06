@@ -2,12 +2,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import orderSlice from "./orderSlice";
 import upcomingOrdersSlice from "./upcomingOrdersSlice";
+import orderHistorySlice from "./orderHistorySlice";  // Import the new slice
+ 
 
 const store = configureStore({
   reducer: {
     orders: orderSlice,
     upcomingOrders: upcomingOrdersSlice,
-    deliveredOrders: upcomingOrdersSlice,
+    orderHistory: orderHistorySlice,  // New order history slice
 
   },
 });
