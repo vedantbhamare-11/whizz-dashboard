@@ -8,7 +8,7 @@ export enum OrderType {
 }
 
 
-interface Order {
+export interface Order {
   id: string;
   customerName: string;
   customerNumber: string;

@@ -3,14 +3,19 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import OrderDetailModal from "./OrderDetailModal"; // Import the modal component
+import { Order } from "@/redux/orderHistorySlice";
 
 const OrderHistorySection = () => {
   const orders = useSelector((state: RootState) => state.orderHistory); // Select order history from redux store
-  const [selectedOrder, setSelectedOrder] = useState(null);  // Track selected order
+  const [selectedOrder, setSelectedOrder] = useState<null | Order>(null);  // Track selected order
 
   const handleOrderClick = (orderId: string) => {
     const order = orders.find((order) => order.id === orderId); // Find the selected order by ID
-    setSelectedOrder(order);  // Set the clicked order as selected
+    if (order) {
+      setSelectedOrder(order);  // Set the clicked order as selected if found
+    } else {
+      setSelectedOrder(null);  // If no order is found, reset to null
+    }
   };
 
   return (
@@ -34,7 +39,6 @@ const OrderHistorySection = () => {
                   <div className="font-semibold text-lg">
                     Order ID: #{order.id}
                   </div>
-                
                 </div>
               </div>
             ))
