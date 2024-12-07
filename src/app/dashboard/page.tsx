@@ -29,7 +29,10 @@ const Dashboard = () => {
             <main className="flex-1 p-4 flex flex-col space-y-4">
               <OrderSection />
               <MapSection />
+              <div className="pb-16">
               <UpcomingOrdersSection />
+
+              </div>
             </main>
           </div>
         </div>
