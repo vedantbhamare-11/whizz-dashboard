@@ -31,11 +31,11 @@ const OrderHistorySection = () => {
 
         {/* Search Bar */}
         <input
-          type="text"
+          type="number"
           placeholder="Search by Order ID"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="border px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border px-4 py-2 rounded-lg shadow-sm lg:w-1/3 w-[45%] text-sm focus:outline-none"
         />
       </CardHeader>
 
