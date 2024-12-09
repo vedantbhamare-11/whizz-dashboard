@@ -23,15 +23,7 @@ const NotificationItem = ({ notification, markAsRead }: NotificationItemProps) =
           </div>
           <p className="text-sm text-muted-foreground">{notification.message}</p>
         </div>
-        {!notification.read && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => markAsRead(notification.id)}
-          >
-            Mark as Read
-          </Button>
-        )}
+        
       </div>
     </div>
   );

@@ -8,11 +8,10 @@ export type Notification = {
   message: string;
   timestamp: string;
   read: boolean;
-  badge?: string; // Optional property
-  body?: string;  // Optional property
-  data?: unknown; // Changed from 'any' to 'unknown'
-  dir?: string;   // Optional property
-  // Add any other properties that are missing
+  badge?: string; 
+  body?: string;  
+  data?: unknown; 
+  dir?: string;   
 };
 
 interface NotificationsState {
