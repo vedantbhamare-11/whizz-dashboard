@@ -28,7 +28,7 @@ const getTypeColor = (type: string) => {
 const OrderDetailModal = ({ order, onClose }: OrderDetailModalProps) => {
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="lg:max-w-[450px] max-w-[400px] rounded-xl">
+      <DialogContent className=" w-[90%] rounded-xl">
         {/* Order Details */}
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
@@ -45,25 +45,25 @@ const OrderDetailModal = ({ order, onClose }: OrderDetailModalProps) => {
               </div>
             </div>
             <div>
-              <div className="text-lg text-[#050505] font-bold">
+              <div className="lg:text-lg text-md text-[#050505] font-bold">
                 Customer Name
               </div>
               <div className="text-[#808080] text-sm">{order.customerName}</div>
             </div>
             <div>
-              <div className="text-lg text-[#050505] font-bold flex justify-end">
-                Customer Number
+              <div className="lg:text-lg text-md  text-[#050505] font-bold flex justify-end">
+                Customer No.
               </div>
               <div className="text-[#808080] text-sm flex justify-end">
                 {order.customerNumber}
               </div>
             </div>
             <div>
-              <div className="text-lg text-[#050505] font-bold">Pickup</div>
+              <div className="lg:text-lg text-md  text-[#050505] font-bold">Pickup</div>
               <div className="text-[#808080] text-sm">{order.pickup}</div>
             </div>
             <div>
-              <div className="text-lg text-[#050505] font-bold flex justify-end">
+              <div className="lg:text-lg text-md  text-[#050505] font-bold flex justify-end">
                 Pickup Time
               </div>
               <div className="text-[#808080] text-sm flex justify-end">
@@ -71,11 +71,11 @@ const OrderDetailModal = ({ order, onClose }: OrderDetailModalProps) => {
               </div>
             </div>
             <div>
-              <div className="text-lg text-[#050505] font-bold">Delivery</div>
+              <div className="lg:text-lg text-md  text-[#050505] font-bold">Delivery</div>
               <div className="text-[#808080] text-sm">{order.delivery}</div>
             </div>
             <div>
-              <div className="text-lg text-[#050505] font-bold flex justify-end">
+              <div className="lg:text-lg text-md  text-[#050505] font-bold flex justify-end">
                 Delivery Time
               </div>
               <div className="text-[#808080] text-sm flex justify-end">
