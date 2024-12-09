@@ -8,14 +8,11 @@ import { format } from "date-fns";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Input } from "../ui/input";
 
 const isMobile = () => window.innerWidth <= 640;
 
 const OrderSection = () => {
   const [isMobileView, setIsMobileView] = useState(false);
-  const [fileName, setFileName] = useState<string | null>(null);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobileView(isMobile());
@@ -37,7 +34,7 @@ const OrderSection = () => {
 
   const handleButtonClick = (orderId: string) => {
     setButtonStates((prev) => {
-      const currentState = prev[orderId] ?? "pickup"; // Default to 'pickup' if not initialized
+      const currentState = prev[orderId] ?? "pickup";
 
       let newState: "pickup" | "deliver" | "delivered" | null;
 
@@ -56,29 +53,21 @@ const OrderSection = () => {
       };
     });
   };
-  
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    if (file) {
-      setFileName(file.name); // Set the file name
-      setUploadSuccess(true); // Set upload success to true
-    }
-  };
 
   // Function to determine button color based on state
   const getButtonColor = (state: "pickup" | "deliver" | "delivered" | null) => {
-    const primaryColor = "bg-[#3CAE06]"; // Primary green color
-    const hoverColor = "hover:bg-[#33A305]"; // Slightly darker green for hover
+    const primaryColor = "bg-[#3CAE06]";
+    const hoverColor = "hover:bg-[#33A305]";
 
     switch (state) {
       case "pickup":
-        return `${primaryColor} ${hoverColor} text-white`; // Pickup state with primary color
+        return `${primaryColor} ${hoverColor} text-white`;
       case "deliver":
-        return `${primaryColor} ${hoverColor} text-white`; // Deliver state with primary color
+        return `${primaryColor} ${hoverColor} text-white`;
       case "delivered":
-        return `${primaryColor} ${hoverColor} text-white`; // Delivered state with primary color
+        return `${primaryColor} ${hoverColor} text-white`;
       default:
-        return "bg-green-500 hover:bg-green-600 text-white"; // Default gray for initial state
+        return "bg-green-500 hover:bg-green-600 text-white";
     }
   };
 
@@ -178,6 +167,7 @@ const OrderSection = () => {
                 </div>
               </div>
 
+              <Separator className="my-4" />
               {/* Action Buttons */}
               <div className="flex justify-center flex-col items-center w-full space-y-6">
                 <Button
@@ -197,25 +187,24 @@ const OrderSection = () => {
                   {/* Default text */}
                 </Button>
 
-                <div className="flex w-full gap-2">
+                {/* <div className="flex w-full gap-2">
                   <div className="flex flex-col items-start w-[50%]">
                     <Button
                       variant="ghost"
                       className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] text-white flex items-center justify-center"
                       onClick={() =>
                         document.getElementById("picture")?.click()
-                      } // Trigger file input
+                      } 
                     >
                       <Input
                         id="picture"
                         type="file"
                         className=" absolute inset-0 opacity-0 cursor-pointer"
-                        onChange={handleFileChange} // Handle file change
+                        onChange={handleFileChange} 
                       />
                       <span className="text-sm ">Upload Image</span>
                     </Button>
 
-                    {/* Display file name and success message */}
                     {fileName && uploadSuccess && (
                       <div className="text-xs text-[#3CAE06] mt-2">
                         <p className="text-green-500 text-sm">
@@ -236,7 +225,7 @@ const OrderSection = () => {
 
                 <Button className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] text-white flex items-center justify-center">
                   Submit
-                </Button>
+                </Button> */}
               </div>
             </div>
           ))}
@@ -358,7 +347,7 @@ const OrderSection = () => {
                       buttonStates[order.id]
                     )}`}
                     onClick={() => handleButtonClick(order.id)}
-                    disabled={buttonStates[order.id] === "delivered"} // Disable when delivered
+                    disabled={buttonStates[order.id] === "delivered"}
                   >
                     {buttonStates[order.id] === "pickup"
                       ? "Pickup"
@@ -368,47 +357,6 @@ const OrderSection = () => {
                       ? "Delivered"
                       : "Pickup"}{" "}
                     {/* Default text */}
-                  </Button>
-
-                  <div className="flex flex-row w-full gap-2">
-                    <div className="flex flex-col items-start w-[50%]">
-                      <Button
-                        variant="ghost"
-                        className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] hover:text-white text-white flex items-center justify-center"
-                        onClick={() =>
-                          document.getElementById("picture")?.click()
-                        } // Trigger file input
-                      >
-                        <Input
-                          id="picture"
-                          type="file"
-                          className="absolute z-[1] w-auto  flex opacity-0 cursor-pointer"
-                          onChange={handleFileChange} // Handle file change
-                        />
-                        <span className="text-sm">Upload Image</span>
-                      </Button>
-
-                      {/* Display file name and success message */}
-                      {fileName && uploadSuccess && (
-                        <div className="text-xs text-[#3CAE06] mt-2">
-                          <p className="text-green-500">
-                            Successfully uploaded!
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex flex-row justify-center items-center w-[50%] gap-1">
-                  
-                      <Input
-                        type="number"
-                        className="w-full z-[2]"
-                        placeholder="Total Amount"
-                      ></Input>
-                    </div>
-                  </div>
-
-                  <Button className="w-full rounded-full bg-[#3CAE06] hover:bg-[#33A305] text-white flex items-center justify-center">
-                    Submit
                   </Button>
                 </div>
               </div>
