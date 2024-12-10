@@ -32,9 +32,9 @@ export default function NotificationsPage() {
           <Header />
           <div className="flex flex-1 pt-20">
             <Sidebar />
-            <main className="flex-1 p-4 mb-[5rem] flex flex-col space-y-4">
+            <main className="flex-1 mb-[5rem] flex flex-col space-y-4">
               <div className="space-y-6">
-                <div className="flex justify-between items-center">
+                <div className="flex p-4 justify-between items-center">
                   <h1 className="text-3xl font-bold">Notifications</h1>
                   <MarkAllButton onClick={() => dispatch(markAllAsRead())} />
                 </div>

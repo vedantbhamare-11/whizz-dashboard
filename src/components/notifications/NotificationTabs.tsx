@@ -12,7 +12,7 @@ interface NotificationTabsProps {
 const NotificationTabs = ({ notifications, unreadCount, markAsRead }: NotificationTabsProps) => {
   return (
     <Tabs defaultValue="all">
-      <TabsList>
+      <TabsList className="mx-4">
         <TabsTrigger className="text-black" value="all">All</TabsTrigger>
         <TabsTrigger value="unread" className="text-black">Unread ({unreadCount})</TabsTrigger>
       </TabsList>
