@@ -7,6 +7,11 @@ export enum OrderType {
   CUSTOM_PACKAGE = "Custom Package",
 }
 
+export enum PaymentType {
+  CASH_ON_DELIVERY = "COD",
+  PREPAID = "Prepaid",
+}
+
 export enum OrderStatus {
   IN_PROGRESS = "In Progress",
   PENDING = "Pending",
@@ -19,6 +24,7 @@ interface Order {
   eta: string;
   status: OrderStatus;
   type: OrderType;
+  paymentType: PaymentType;
   pickup: string;
   delivery: string;
 }
@@ -29,8 +35,9 @@ const initialState: Order[] = [
     customerName: "John Doe",
     customerNumber: "9876543210",
     eta: "15 min",
-    status: OrderStatus.IN_PROGRESS,
-    type: OrderType.FOOD,
+    status: OrderStatus.PENDING,
+    type: OrderType.CUSTOM_PACKAGE,
+    paymentType: PaymentType.PREPAID,
     pickup: "123 Main St, City Center",
     delivery: "456 Elm St, Suburbia",
   },

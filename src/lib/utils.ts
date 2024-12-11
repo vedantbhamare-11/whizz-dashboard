@@ -1,11 +1,18 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-import { Bell, Package, IndianRupee, Calendar, AlertTriangle, MessageSquare, Star } from "lucide-react";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+import {
+  Bell,
+  Package,
+  IndianRupee,
+  Calendar,
+  AlertTriangle,
+  MessageSquare,
+  Star,
+} from "lucide-react";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
-
 
 // utils.ts
 
@@ -28,4 +35,21 @@ export const getIconForType = (type: string) => {
     default:
       return Bell;
   }
+};
+
+// utils.ts
+export const OrderColors = {
+  FOOD: "#E8E8E8",
+  MEDICINE: "#D8FFC6",
+  CUSTOM_PACKAGE: "#FFC370",
+};
+
+export const OrderStatusColors = {
+  IN_PROGRESS: "#FFE18E",
+  PENDING: "#FF7D7D",
+};
+
+export const PaymentTypeColors = {
+  CASH_ON_DELIVERY: "#FFE18E",
+  PREPAID: "#D8FFC6", 
 };

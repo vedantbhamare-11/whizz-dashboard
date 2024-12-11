@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { OrderType, OrderStatus } from "@/redux/orderSlice";
+import { OrderType, OrderStatus, PaymentType } from "@/redux/orderSlice";
 import { format } from "date-fns";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { OrderColors, OrderStatusColors, PaymentTypeColors } from "@/lib/utils";
+import { Badge } from "../ui/badge";
 
 const isMobile = () => window.innerWidth <= 640;
 
@@ -85,24 +87,35 @@ const OrderSection = () => {
               {/* Header */}
               <div className="flex justify-between items-center">
                 <div className="flex space-x-2">
-                  <div
-                    className={`text-sm px-2 py-1 rounded-full ${
+                <Badge
+                    className={`text-black font-normal ${
                       order.type === OrderType.FOOD
-                        ? "bg-[#E8E8E8]"
-                        : "bg-[#FFC370]"
+                        ? `bg-[${OrderColors.FOOD}]`
+                        : order.type === OrderType.MEDICINE
+                        ? `bg-[${OrderColors.MEDICINE}]`
+                        : `bg-[${OrderColors.CUSTOM_PACKAGE}]`
                     }`}
                   >
                     {order.type}
-                  </div>
-                  <div
-                    className={`text-sm px-2 py-1 rounded-full ${
+                  </Badge>
+                  <Badge
+                    className={`text-black font-normal ${
                       order.status === OrderStatus.IN_PROGRESS
-                        ? "bg-[#FFE18E]"
-                        : "bg-[#FF7D7D]"
+                        ? `bg-[${OrderStatusColors.IN_PROGRESS}]`
+                        : `bg-[${OrderStatusColors.PENDING}]`
                     }`}
                   >
                     {order.status}
-                  </div>
+                  </Badge>
+                  <Badge
+                    className={`text-black font-normal ${
+                      order.paymentType === PaymentType.CASH_ON_DELIVERY
+                        ? `bg-[${PaymentTypeColors.CASH_ON_DELIVERY}]`
+                        : `bg-[${PaymentTypeColors.PREPAID}]`
+                    }`}
+                  >
+                    {order.paymentType}
+                  </Badge>
                 </div>
                 <div className="text-sm text-[#808080]">
                   {format(new Date(), "dd/MM/yyyy")}
@@ -251,27 +264,39 @@ const OrderSection = () => {
                 </div>
 
                 <div className="flex items-center space-x-4">
-                  <div className="text-sm text-[#808080]">
-                    {format(new Date(), "dd/MM/yyyy")}
-                  </div>
-                  <div
-                    className={`text-sm px-2 py-1 rounded-full text-[#000000] ${
-                      OrderStatus.IN_PROGRESS === order.status
-                        ? "bg-[#FFE18E]"
-                        : "bg-[#FF7D7D]"
-                    }`}
-                  >
-                    {order.status}
-                  </div>
-                  <div
-                    className={`text-sm px-2 py-1 rounded-full text-[#000000] ${
-                      OrderType.FOOD === order.type
-                        ? "bg-[#E8E8E8]"
-                        : "bg-[#FFC370]"
+                  
+                   <Badge
+                    className={`text-black text-sm font-normal ${
+                      order.type === OrderType.FOOD
+                        ? `bg-[${OrderColors.FOOD}]`
+                        : order.type === OrderType.MEDICINE
+                        ? `bg-[${OrderColors.MEDICINE}]`
+                        : `bg-[${OrderColors.CUSTOM_PACKAGE}]`
                     }`}
                   >
                     {order.type}
-                  </div>
+                  </Badge>
+                  <Badge
+                    className={`text-black text-sm font-normal ${
+                      order.status === OrderStatus.IN_PROGRESS
+                        ? `bg-[${OrderStatusColors.IN_PROGRESS}]`
+                        : `bg-[${OrderStatusColors.PENDING}]`
+                    }`}
+                  >
+                    {order.status}
+                  </Badge>
+                  <Badge
+                    className={`text-black text-sm font-normal ${
+                      order.paymentType === PaymentType.CASH_ON_DELIVERY
+                        ? `bg-[${PaymentTypeColors.CASH_ON_DELIVERY}]`
+                        : `bg-[${PaymentTypeColors.PREPAID}]`
+                    }`}
+                  >
+                    {order.paymentType}
+                  </Badge>
+                  <div className="text-sm text-[#808080]">
+                    {format(new Date(), "dd/MM/yyyy")}
+                   </div>
                 </div>
               </div>
 
