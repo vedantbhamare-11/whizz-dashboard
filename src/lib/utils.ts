@@ -46,7 +46,7 @@ export const OrderColors = {
 
 export const OrderStatusColors = {
   IN_PROGRESS: "#FFE18E",
-  PENDING: "#FF7D7D",
+  PENDING: "#E8E8E8",
 };
 
 export const PaymentTypeColors = {
