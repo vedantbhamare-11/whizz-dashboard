@@ -26,6 +26,7 @@ const OrderHistory = () => {
           <div className="flex flex-1 pt-20">
             <Sidebar />
             <main className="flex-1 p-4 mb-[5rem] flex flex-col space-y-4">
+            <h1 className="text-2xl font-bold">Order History</h1>
               <OrderHistorySection />
             </main>
           </div>
