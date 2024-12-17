@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"; 
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"; 
+import { Order, OrderType } from "@/redux/orderHistorySlice";
 import OrderDetailModal from "./OrderDetailModal"; 
-import { Order } from "@/redux/orderHistorySlice";
 
 const OrderHistorySection = () => {
   const orders = useSelector((state: RootState) => state.orderHistory); 
   const [selectedOrder, setSelectedOrder] = useState<null | Order>(null); // Track selected order
-  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   const handleOrderClick = (orderId: string) => {
     const order = orders.find((order) => order.id === orderId); 
@@ -19,47 +18,65 @@ const OrderHistorySection = () => {
     }
   };
 
-  // Filter orders based on the search query (by Order ID)
-  const filteredOrders = orders.filter((order) => 
-    order.id.toLowerCase().includes(searchQuery.toLowerCase()) // Case-insensitive search
-  );
+  // Function to get the color for the order type
+  const getOrderTypeColor = (type: OrderType) => {
+    switch (type) {
+      case OrderType.FOOD:
+        return "text-[#FF8000]";  // Food type color
+      case OrderType.MEDICINE:
+        return "text-[#188F00]";  // Medicine type color
+      case OrderType.CUSTOM_PACKAGE:
+        return "text-[#BDA700]";  // Custom Package type color
+      default:
+        return "text-[#808080]";  // Default gray color for unknown types
+    }
+  };
 
   return (
-    <div className="flex flex-col h-full lg:border lg:rounded-lg lg:shadow-sm">
-      <CardHeader className="lg:p-6 p-4 flex flex-row justify-between items-center">
-        <CardTitle>Order History</CardTitle>
-
-        {/* Search Bar */}
-        <input
-          type="number"
-          placeholder="Search by Order ID"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="border px-4 py-2 rounded-lg shadow-sm lg:w-1/3 w-[45%] text-sm focus:outline-none"
-        />
-      </CardHeader>
-
-      <CardContent className="lg:px-6 p-4">
-        <div className="space-y-4">
-          {filteredOrders.length === 0 ? (
-            <div>No orders found</div>
+    <div className="p-4 flex flex-col h-full lg:border lg:rounded-lg lg:shadow-sm">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="text-black">Order</TableHead>
+            <TableHead className="text-black">Customer Name</TableHead>
+            <TableHead className="text-black">Customer Number</TableHead>
+            <TableHead className="text-black">Pickup</TableHead>
+            <TableHead className="text-black">Delivery</TableHead>
+            <TableHead className="text-black">Pickup Time</TableHead>
+            <TableHead className="text-black">Delivery Time</TableHead>
+            <TableHead className="text-black">Item</TableHead>
+            <TableHead className="text-black">Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {orders.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={9} className="text-gray-500">No orders found</TableCell>
+            </TableRow>
           ) : (
-            filteredOrders.map((order) => (
-              <div
-                key={order.id}
-                className="p-4 border rounded-lg cursor-pointer shadow-sm hover:shadow-md"
-                onClick={() => handleOrderClick(order.id)} // Add onClick handler
-              >
-                <div className="flex justify-between items-center mb-4">
-                  <div className="font-semibold text-lg">
-                    Order ID: #{order.id}
-                  </div>
-                </div>
-              </div>
+            orders.map((order) => (
+              <TableRow key={order.id}>
+                <TableCell className="text-[#808080]">#{order.id}</TableCell>
+                <TableCell className="text-[#808080]">{order.customerName}</TableCell>
+                <TableCell className="text-[#808080]">{order.customerNumber}</TableCell>
+                <TableCell className="text-[#808080]">{order.pickup}</TableCell>
+                <TableCell className="text-[#808080]">{order.delivery}</TableCell>
+                <TableCell className="text-[#808080]">{order.pickupTime || "N/A"}</TableCell>
+                <TableCell className="text-[#808080]">{order.deliveryTime || "N/A"}</TableCell>
+                <TableCell className={getOrderTypeColor(order.type)}>{order.type}</TableCell>
+                <TableCell>
+                  <button
+                    onClick={() => handleOrderClick(order.id)}
+                    className="bg-[#3CAE06] text-xs text-white rounded-full px-4 py-1"
+                  >
+                    Details
+                  </button>
+                </TableCell>
+              </TableRow>
             ))
           )}
-        </div>
-      </CardContent>
+        </TableBody>
+      </Table>
 
       {/* Modal for displaying selected order details */}
       {selectedOrder && (
