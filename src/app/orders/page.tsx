@@ -60,18 +60,18 @@ const OrderHistory = () => {
                 <h1 className="text-2xl font-bold">Order History</h1>
                 <div className="flex space-x-4">
                   {/* Select All Button */}
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded-md text-sm">
+                  <Button variant={"outline"} className="px-4 py-2  rounded-full text-sm">
                     Select All
-                  </button>
+                  </Button>
                   {/* Cancel Button */}
-                  <button className="px-4 py-2 bg-red-500 text-white rounded-md text-sm">
+                  <Button variant={"outline"} className="px-4 py-2 rounded-full text-sm">
                     Cancel
-                  </button>
+                  </Button>
                   {/* Export Button with Download Icon */}
-                  <button className="px-4 py-2 bg-green-500 text-white rounded-md text-sm flex items-center space-x-2">
-                    <Download className="text-white" size={16} />
+                  <Button className="px-4 py-2 bg-[#3CAE06] text-white rounded-full text-sm flex items-center">
                     <span>Export</span>
-                  </button>
+                    <Download className="text-white" size={16} />
+                  </Button>
                 </div>
               </div>
               <OrderHistorySection />
