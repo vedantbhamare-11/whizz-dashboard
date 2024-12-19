@@ -47,7 +47,7 @@ const initialState: Order[] = [
     pickup: "321 Oak St, Old Town",
     delivery: "654 Pine St, West End",
     pickupTime: "10:00 AM",
-    deliveryTime: "12:00 PM",
+    deliveryTime: "10:20 AM",
   },
   {
     id: "0004",
@@ -77,7 +77,7 @@ const initialState: Order[] = [
     pickup: "555 Oak St, Suburbia",
     delivery: "333 Maple St, City Center",
     pickupTime: "3:30 PM",
-    deliveryTime: "4:30 PM",
+    deliveryTime: "3:50 PM",
   },
 ];
 

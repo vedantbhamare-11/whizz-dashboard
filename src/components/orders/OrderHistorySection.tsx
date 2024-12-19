@@ -1,34 +1,58 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux"; // Import useSelector
+import { RootState } from "@/redux/store"; // Import RootState for type safety
+import { Checkbox } from "@/components/ui/checkbox";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"; 
-import { Order, OrderType } from "@/redux/orderHistorySlice";
-import OrderDetailModal from "./OrderDetailModal"; 
+import { Order, OrderType } from "@/redux/orderHistorySlice"; // Import Order type
+import { parse, differenceInMinutes, isValid } from 'date-fns'; // Using date-fns for time manipulation
 
-const OrderHistorySection = () => {
+interface OrderHistorySectionProps {
+  isSelecting: boolean;
+  selectedOrders: Set<string>;
+  setSelectedOrders: React.Dispatch<React.SetStateAction<Set<string>>>;
+  onOrderClick: (order: Order) => void; // Add onOrderClick function prop
+}
+
+const OrderHistorySection = ({
+  isSelecting,
+  selectedOrders,
+  setSelectedOrders,
+  onOrderClick, // Accept onOrderClick function as prop
+}: OrderHistorySectionProps) => {
   const orders = useSelector((state: RootState) => state.orderHistory); 
-  const [selectedOrder, setSelectedOrder] = useState<null | Order>(null); // Track selected order
 
-  const handleOrderClick = (orderId: string) => {
-    const order = orders.find((order) => order.id === orderId); 
-    if (order) {
-      setSelectedOrder(order); 
+  const handleCheckboxChange = (orderId: string) => {
+    const newSelectedOrders = new Set(selectedOrders);
+    if (newSelectedOrders.has(orderId)) {
+      newSelectedOrders.delete(orderId);
     } else {
-      setSelectedOrder(null); 
+      newSelectedOrders.add(orderId);
     }
+    setSelectedOrders(newSelectedOrders);
   };
 
-  // Function to get the color for the order type
+  const calculateDeliveredTime = (pickupTime: string | undefined, deliveryTime: string | undefined) => {
+    if (!pickupTime || !deliveryTime) return "N/A";
+    const pickupDate = parse(pickupTime, "hh:mm a", new Date());
+    const deliveryDate = parse(deliveryTime, "hh:mm a", new Date());
+    if (!isValid(pickupDate) || !isValid(deliveryDate)) return "N/A";
+    const minutes = differenceInMinutes(deliveryDate, pickupDate);
+    return `${minutes}m`;
+  };
+
+  const getOrderStatus = (pickupTime: string | undefined, deliveryTime: string | undefined) => {
+    return deliveryTime ? "Delivered" : "Canceled";
+  };
+
   const getOrderTypeColor = (type: OrderType) => {
     switch (type) {
       case OrderType.FOOD:
-        return "text-[#FF8000]";  // Food type color
+        return "text-[#FF8000]";
       case OrderType.MEDICINE:
-        return "text-[#188F00]";  // Medicine type color
+        return "text-[#188F00]";
       case OrderType.CUSTOM_PACKAGE:
-        return "text-[#BDA700]";  // Custom Package type color
+        return "text-[#BDA700]";
       default:
-        return "text-[#808080]";  // Default gray color for unknown types
+        return "text-[#808080]";
     }
   };
 
@@ -37,13 +61,14 @@ const OrderHistorySection = () => {
       <Table>
         <TableHeader>
           <TableRow>
+            {isSelecting && <TableHead className="text-black">Select</TableHead>}
             <TableHead className="text-black">Order</TableHead>
             <TableHead className="text-black">Customer Name</TableHead>
             <TableHead className="text-black">Customer Number</TableHead>
             <TableHead className="text-black">Pickup</TableHead>
             <TableHead className="text-black">Delivery</TableHead>
-            <TableHead className="text-black">Pickup Time</TableHead>
-            <TableHead className="text-black">Delivery Time</TableHead>
+            <TableHead className="text-black">Delivered</TableHead>
+            <TableHead className="text-black">Status</TableHead>
             <TableHead className="text-black">Item</TableHead>
             <TableHead className="text-black">Action</TableHead>
           </TableRow>
@@ -56,17 +81,25 @@ const OrderHistorySection = () => {
           ) : (
             orders.map((order) => (
               <TableRow key={order.id}>
+                {isSelecting && (
+                  <TableCell>
+                    <Checkbox
+                      checked={selectedOrders.has(order.id)}
+                      onChange={() => handleCheckboxChange(order.id)}
+                    />
+                  </TableCell>
+                )}
                 <TableCell className="text-[#808080]">#{order.id}</TableCell>
                 <TableCell className="text-[#808080]">{order.customerName}</TableCell>
                 <TableCell className="text-[#808080]">{order.customerNumber}</TableCell>
                 <TableCell className="text-[#808080]">{order.pickup}</TableCell>
                 <TableCell className="text-[#808080]">{order.delivery}</TableCell>
-                <TableCell className="text-[#808080]">{order.pickupTime || "N/A"}</TableCell>
-                <TableCell className="text-[#808080]">{order.deliveryTime || "N/A"}</TableCell>
+                <TableCell className="text-[#808080]">{calculateDeliveredTime(order.pickupTime, order.deliveryTime)}</TableCell>
+                <TableCell className="text-[#808080]">{getOrderStatus(order.pickupTime, order.deliveryTime)}</TableCell>
                 <TableCell className={getOrderTypeColor(order.type)}>{order.type}</TableCell>
                 <TableCell>
                   <button
-                    onClick={() => handleOrderClick(order.id)}
+                    onClick={() => onOrderClick(order)} // Trigger onOrderClick with the order data
                     className="bg-[#3CAE06] text-xs text-white rounded-full px-4 py-1"
                   >
                     Details
@@ -77,14 +110,6 @@ const OrderHistorySection = () => {
           )}
         </TableBody>
       </Table>
-
-      {/* Modal for displaying selected order details */}
-      {selectedOrder && (
-        <OrderDetailModal
-          order={selectedOrder}
-          onClose={() => setSelectedOrder(null)} // Close modal when clicking close button
-        />
-      )}
     </div>
   );
 };
