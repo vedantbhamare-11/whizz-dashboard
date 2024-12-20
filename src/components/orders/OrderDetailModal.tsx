@@ -1,99 +1,99 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Order } from "@/redux/orderHistorySlice"; // Import the Order type
+import { SquareArrowOutUpRight } from "lucide-react"; // Import the icon for the button
+import Link from "next/link"; // To use Link for navigating
+import { Dialog, DialogContent } from "../ui/dialog";
+import { Order } from "@/redux/orderHistorySlice"; // Import the Order type from the correct location
+import { Separator } from "@/components/ui/separator"; // Import the Separator component
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 interface OrderDetailModalProps {
   order: Order; // Specify the type for the order prop
   onClose: () => void;
 }
 
-const getTypeColor = (type: string) => {
-  switch (type) {
-    case "Food":
-      return "bg-[#E8E8E8]";
-    case "Medicine":
-      return "bg-[#D8FFC6]";
-    case "Custom Package":
-      return "bg-[#FFC370]";
-    default:
-      return "bg-gray-200";
-  }
+const getOrderStatus = (pickupTime: string | undefined, deliveryTime: string | undefined) => {
+  return deliveryTime ? "Delivered" : "Canceled"; // Return status based on deliveryTime
 };
 
 const OrderDetailModal = ({ order, onClose }: OrderDetailModalProps) => {
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className=" w-[90%] rounded-xl">
+      <DialogContent className="w-[90%] rounded-xl">
         {/* Order Details */}
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="my-6">
-              <DialogTitle className="">Order #{order.id}</DialogTitle>
-            </div>
-            <div>
-              <div
-                className={`absolute top-12 right-6 text-black text-sm py-1 px-2 rounded-full ${getTypeColor(
-                  order.type
-                )}`}
-              >
-                {order.type}
-              </div>
-            </div>
-            <div>
-              <div className="lg:text-lg text-md text-[#050505] font-bold">
-                Customer Name
-              </div>
-              <div className="text-[#808080] text-sm">{order.customerName}</div>
-            </div>
-            <div>
-              <div className="lg:text-lg text-md  text-[#050505] font-bold flex justify-end">
-                Customer No.
-              </div>
-              <div className="text-[#808080] text-sm flex justify-end">
-                {order.customerNumber}
-              </div>
-            </div>
-            <div>
-              <div className="lg:text-lg text-md  text-[#050505] font-bold">Pickup</div>
-              <div className="text-[#808080] text-sm">{order.pickup}</div>
-            </div>
-            <div>
-              <div className="lg:text-lg text-md  text-[#050505] font-bold flex justify-end">
-                Pickup Time
-              </div>
-              <div className="text-[#808080] text-sm flex justify-end">
-                {order.pickupTime || "Not available"}
-              </div>
-            </div>
-            <div>
-              <div className="lg:text-lg text-md  text-[#050505] font-bold">Delivery</div>
-              <div className="text-[#808080] text-sm">{order.delivery}</div>
-            </div>
-            <div>
-              <div className="lg:text-lg text-md  text-[#050505] font-bold flex justify-end">
-                Delivery Time
-              </div>
-              <div className="text-[#808080] text-sm flex justify-end">
-                {order.deliveryTime || "Not available"}
-              </div>
-            </div>
-          </div>
+          {/* Order ID */}
+          <DialogTitle className="flex gap-4 items-center">
+            <div className="text-lg text-[#050505] font-bold">Order ID-</div>
+            <div className="text-lg text-[#808080]">#{order.id}</div>
+          </DialogTitle>
 
-          {/* Order Details Button */}
-          <div className="flex justify-start mt-4">
-            <Button
-              variant="ghost"
-              className="rounded-lg bg-[#3CAE06] hover:bg-[#33A305] text-white"
-            >
-              Order Details
-            </Button>
+          {/* Separator */}
+          <Separator className="my-4" />
+
+          <div className="grid grid-rows-2 grid-cols-3 w-full gap-4">
+            {/* Customer Name */}
+            <div>
+              <div className="text-lg text-[#050505]">Customer Name</div>
+              <div className="text-lg text-[#808080]">{order.customerName}</div>
+            </div>
+
+            {/* Customer Number */}
+            <div>
+              <div className="text-lg text-[#050505]">Customer Number</div>
+              <div className="text-lg text-[#808080]">{order.customerNumber}</div>
+            </div>
+
+            {/* Order Status */}
+            <div>
+              <div className="text-lg text-[#050505]">Status</div>
+              <div className="text-lg text-[#808080]">{getOrderStatus(order.pickupTime, order.deliveryTime)}</div>
+            </div>
+
+            {/* Pickup */}
+            <div>
+              <div className="text-lg text-[#050505] flex items-center">
+                Pickup
+                <Button variant="ghost" className="ml-2">
+                  <SquareArrowOutUpRight size={18} />
+                </Button>
+              </div>
+              <div className="text-lg text-[#808080]">
+                {order.pickup.split(",").map((line, index) => (
+                  <div key={index}>{line.trim()}</div>
+                ))}
+              </div>
+            </div>
+
+            {/* Delivery */}
+            <div>
+              <div className="text-lg text-[#050505] flex items-center">
+                Delivery
+                <Button variant="ghost" className="ml-2">
+                  <SquareArrowOutUpRight size={18} />
+                </Button>
+              </div>
+              <div className="text-lg text-[#808080]">
+                {order.delivery.split(",").map((line, index) => (
+                  <div key={index}>{line.trim()}</div>
+                ))}
+              </div>
+            </div>
+
+            {/* Downloads */}
+            <div>
+              <div className="text-lg text-[#050505]">Downloads</div>
+              <div className="mt-2 text-[#808080] flex flex-col">
+                <Link href="#" className="underline">
+                  Order Details
+                </Link>
+                <Link href="#" className="underline">
+                  Payment Details
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
+        
       </DialogContent>
     </Dialog>
   );

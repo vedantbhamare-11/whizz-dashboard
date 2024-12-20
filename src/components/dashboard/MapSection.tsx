@@ -13,8 +13,9 @@ const MapSection = () => {
     const myMap = olaMaps.init({
       style: "https://api.olamaps.io/tiles/vector/v1/styles/default-light-standard/style.json", // Add the link to your map tiles JSON style
       container: "map-container", // The ID of the container for the map
-      center: [15.9716, 37.5946], // Initial coordinates (latitude, longitude)
-      zoom: 13, // Set zoom level
+      center: [13.0849, 80.2065
+      ], // Initial coordinates (latitude, longitude)
+      zoom: 10, // Set zoom level
     });
 
     return () => {
