@@ -165,10 +165,11 @@ const OrderHistory = () => {
                       </Button>
                       <Button
                         variant="outline"
-                        className="rounded-full flex items-center space-x-2"
+                        className="rounded-full flex items-center text-white bg-[#3CAE06]"
                       >
-                        <Download size={16} />
                         <span>Export</span>
+                        <Download size={16} />
+
                       </Button>
                     </>
                   )}

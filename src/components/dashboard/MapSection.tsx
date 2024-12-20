@@ -6,7 +6,7 @@ const MapSection = () => {
   useEffect(() => {
     // Initialize Ola Maps once the component has mounted
     const olaMaps = new OlaMaps({
-      apiKey: "ALTwalP5rFVnikRCD9JMpFK7o-B9",  // Replace with your actual API key
+      apiKey: "3OJLTsPVvFVjWEJQyDnKpHzrIXPUqJzNe2yExXVU",  // Replace with your actual API key
     });
 
     // Set the map configuration
