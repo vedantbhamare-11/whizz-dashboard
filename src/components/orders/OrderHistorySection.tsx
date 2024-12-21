@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux"; // Import useSelector
 import { RootState } from "@/redux/store"; // Import RootState for type safety
 import { Checkbox } from "@/components/ui/checkbox";
@@ -78,7 +77,7 @@ const OrderHistorySection = ({
 
   return (
     <div className="p-4 flex flex-col h-full lg:border lg:rounded-lg lg:shadow-sm">
-      <Table>
+      <Table className="overflow-x-auto">
         <TableHeader>
           <TableRow>
             {isSelecting && <TableHead className="text-black">Select</TableHead>}
@@ -121,7 +120,7 @@ const OrderHistorySection = ({
                   <Popover>
                     <PopoverTrigger asChild>
                       <button className="text-gray-600 hover:text-black">
-                        <MoreVertical size={16} /> {/* Vertical 3 dots icon */}
+                        <MoreVertical size={16} />
                       </button>
                     </PopoverTrigger>
                     <PopoverContent align="end" className="w-auto p-2 flex flex-col space-y-2">
@@ -135,7 +134,7 @@ const OrderHistorySection = ({
                       <Separator />
                       <button
                         onClick={() => handleExport(order.id)}
-                        className=" w-auto flex items-center space-x-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md px-2 py-1"
+                        className="w-auto flex items-center space-x-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md px-2 py-1"
                       >
                         <Download size={16} />
                         <span>Export</span>

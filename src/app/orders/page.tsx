@@ -155,12 +155,12 @@ const OrderHistory = () => {
                     )}
                   </div>
                 </div>
-                <OrderHistorySection
+                {/* <OrderHistorySection
                   isSelecting={isSelecting}
                   selectedOrders={selectedOrders}
                   setSelectedOrders={setSelectedOrders}
                   onOrderClick={(order) => console.log("Order clicked", order)}
-                />
+                /> */}
               </div>
             </main>
           </div>
