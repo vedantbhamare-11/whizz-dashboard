@@ -44,7 +44,7 @@ const OrderHistory = () => {
           <Header />
           <div className="flex flex-1 pt-20">
             <Sidebar />
-            <main className="flex-1 p-4 space-y-4">
+            <main className="flex-1 p-4 space-y-4 h-screen">
               <div className="flex flex-col space-y-4">
                 <h1 className="text-2xl ml-1 font-bold">Order History</h1>
                 <div className="flex space-x-2">
@@ -91,11 +91,14 @@ const OrderHistory = () => {
                     </>
                   )}
                 </div>
+                <div className="pb-20">
                 <MobileOrderCard
                   isSelecting={isSelecting}
                   selectedOrders={selectedOrders}
                   setSelectedOrders={setSelectedOrders}
                 />
+                </div>
+                
               </div>
             </main>
           </div>
