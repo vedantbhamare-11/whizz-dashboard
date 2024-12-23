@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react"; // Importing the Download icon
-import { RootState } from "@/redux/store"; // Import RootState to ensure proper typing
+import { Download } from "lucide-react"; 
+import { RootState } from "@/redux/store";
 import MobileOrderCard from "@/components/orders/MobileOrderCard";
 import OrderHistorySection from "@/components/orders/OrderHistorySection";
 
@@ -13,8 +13,8 @@ const isMobile = () => window.innerWidth <= 820;
 
 const OrderHistory = () => {
   const [isMobileView, setIsMobileView] = useState(false);
-  const [isSelecting, setIsSelecting] = useState(false); // State for selecting orders
-  const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set()); // Track selected orders
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set()); 
 
   // Access the orders from the Redux store
   const orders = useSelector((state: RootState) => state.orderHistory);
@@ -158,12 +158,12 @@ const OrderHistory = () => {
                     )}
                   </div>
                 </div>
-                {/* <OrderHistorySection
+                <OrderHistorySection
                   isSelecting={isSelecting}
                   selectedOrders={selectedOrders}
                   setSelectedOrders={setSelectedOrders}
                   onOrderClick={(order) => console.log("Order clicked", order)}
-                /> */}
+                />
               </div>
             </main>
           </div>

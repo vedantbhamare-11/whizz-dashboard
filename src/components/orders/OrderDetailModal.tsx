@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { SquareArrowOutUpRight } from "lucide-react"; // Import the icon for the button
-import Link from "next/link"; // To use Link for navigating
+import { SquareArrowOutUpRight } from "lucide-react";
+import Link from "next/link";
 import { Dialog, DialogContent } from "../ui/dialog";
-import { Order } from "@/redux/orderHistorySlice"; // Import the Order type from the correct location
-import { Separator } from "@/components/ui/separator"; // Import the Separator component
+import { Order } from "@/redux/orderHistorySlice";
+import { Separator } from "@/components/ui/separator";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState, useLayoutEffect } from "react";
 
 interface OrderDetailModalProps {
-  order: Order; // Specify the type for the order prop
+  order: Order; 
   onClose: () => void;
 }
 
