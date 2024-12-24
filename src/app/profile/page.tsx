@@ -1,3 +1,4 @@
+// ./components/pages/ProfilePage.tsx
 "use client";
 
 import Header from "@/components/layout/Header";
@@ -6,19 +7,27 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import { updateProfile } from "@/redux/profileSlice";
+
+const isMobile = () => window.innerWidth <= 820;
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state: RootState) => state.profile);
 
   const [formData, setFormData] = useState(profile);
-  const [profilePic, setProfilePic] = useState<string | null>(
-    "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800"
-  );
+  const [profilePic, setProfilePic] = useState<string>(profile.profilePic); // Ensure profilePic is string
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useLayoutEffect(() => {
+    const handleResize = () => setIsMobileView(isMobile());
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,86 +44,104 @@ const ProfilePage = () => {
   };
 
   const handleSave = () => {
-    dispatch(updateProfile(formData));
+    dispatch(updateProfile({ ...formData, profilePic }));
     console.log("Profile Saved:", { ...formData, profilePic });
   };
 
-  return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <div className="flex-1 flex flex-col">
-        <Header />
-        <main className="flex-1 p-4 mt-[4rem] ml-[6rem]">
-          <h1 className="text-2xl font-bold mb-6">Profile</h1>
-          <div className="mt-6 w-full mx-auto">
-            <Card className="p-16 flex items-center justify-center rounded-lg shadow-sm">
-              <div className="flex w-1/2 h-auto space-y-8 flex-col items-center">
-                <label htmlFor="profile-pic" className="cursor-pointer">
-                  <div className="relative">
-                    <img
-                      src={profilePic || "https://via.placeholder.com/150"}
-                      alt="Profile Preview"
-                      className="w-32 h-32 rounded-full object-cover border border-gray-200"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-full opacity-0 hover:opacity-100 transition-opacity">
-                      <span className="text-white text-sm">Change</span>
-                    </div>
-                  </div>
-                  <input
-                    id="profile-pic"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="hidden"
-                  />
-                </label>
-
-                <div className="w-full space-y-8">
-                  <div>
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="text-[#808080]"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="text-[#808080]"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="text-[#808080]"
-                    />
-                  </div>
-                </div>
-                <Button
-                  onClick={handleSave}
-                  className="rounded-full w-[75%] bg-[#3CAE06] text-white hover:bg-green-700"
-                >
-                  Save Profile Settings
-                </Button>
-              </div>
-            </Card>
+  const renderProfileContent = () => (
+    <Card className="flex justify-center p-6 rounded-lg shadow-sm">
+      <div className="flex space-y-8 flex-col lg:w-[70%] w-full items-center">
+        <label htmlFor="profile-pic" className="cursor-pointer">
+          <div className="relative">
+            <img
+              src={profilePic}
+              alt="Profile Preview"
+              className="lg:w-36 lg:h-36 w-24 h-24 rounded-full object-cover border border-gray-200"
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-full opacity-0 hover:opacity-100 transition-opacity">
+              <span className="text-white text-sm">Change</span>
+            </div>
           </div>
-        </main>
+          <input
+            id="profile-pic"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </label>
+
+        <div className="w-full mt-6 space-y-8">
+          <div>
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="text-[#808080]"
+            />
+          </div>
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="text-[#808080]"
+            />
+          </div>
+          <div>
+            <Label htmlFor="phone">Phone Number</Label>
+            <Input
+              id="phone"
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="text-[#808080]"
+            />
+          </div>
+        </div>
+
+        <Button
+          onClick={handleSave}
+          className="mt-6 w-[70%] bg-[#3CAE06] rounded-full text-white hover:bg-green-700"
+        >
+          Save Profile Settings
+        </Button>
       </div>
+    </Card>
+  );
+
+  return (
+    <div className="flex flex-col h-screen">
+      {isMobileView ? (
+        <div className="flex flex-col h-screen w-full">
+          <Sidebar />
+          <div className="flex flex-col w-full h-full">
+            <Header />
+            <main className="mt-[5rem] flex-1 p-4 space-y-4">
+              <h1 className="text-2xl font-bold">Profile</h1>
+              <div className="mt-6 mx-auto w-full max-w-md">{renderProfileContent()}</div>
+            </main>
+          </div>
+        </div>
+      ) : (
+        <div className="flex h-full">
+          <Sidebar />
+          <div className="flex-1 flex flex-col">
+            <Header />
+            <main className="flex-1 p-4 mt-[4rem] ml-[6rem]">
+              <h1 className="text-2xl font-bold mb-6">Profile</h1>
+              <div className="mt-6 w-[70%]  mx-auto">{renderProfileContent()}</div>
+            </main>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
