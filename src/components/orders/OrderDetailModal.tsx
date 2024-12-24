@@ -15,7 +15,10 @@ interface OrderDetailModalProps {
 const isMobile = () => window.innerWidth <= 820;
 
 const getOrderStatus = (pickupTime: string | undefined, deliveryTime: string | undefined) => {
-  return deliveryTime ? "Delivered" : "Canceled"; // Return status based on deliveryTime
+  if (deliveryTime) {
+    return <span className="text-[#3CAE06] font-medium">Delivered</span>;
+  }
+  return <span className="text-[#EE5F69] font-medium">Canceled</span>;
 };
 
 const OrderDetailModal = ({ order, onClose }: OrderDetailModalProps) => {
@@ -27,6 +30,7 @@ const OrderDetailModal = ({ order, onClose }: OrderDetailModalProps) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
@@ -85,12 +89,8 @@ const OrderDetailModal = ({ order, onClose }: OrderDetailModalProps) => {
             {/* Status */}
             <div>
               <div className="text-lg text-[#050505]">Status</div>
-              <div className="text-lg text-[#808080]">{getOrderStatus(order.pickupTime, order.deliveryTime)}</div>
+              <div className="text-lg">{getOrderStatus(order.pickupTime, order.deliveryTime)}</div>
             </div>
-
-            
-
-            
 
             {/* Downloads */}
             <div>
