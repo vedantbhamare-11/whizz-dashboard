@@ -11,6 +11,7 @@ import { useState, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import { updateProfile } from "@/redux/profileSlice";
+import Image from "next/image";
 
 const isMobile = () => window.innerWidth <= 820;
 
@@ -53,8 +54,10 @@ const ProfilePage = () => {
       <div className="flex space-y-8 flex-col lg:w-[70%] w-full items-center">
         <label htmlFor="profile-pic" className="cursor-pointer">
           <div className="relative">
-            <img
+            <Image
               src={profilePic}
+              width={100}
+              height={100}
               alt="Profile Preview"
               className="lg:w-36 lg:h-36 w-24 h-24 rounded-full object-cover border border-gray-200"
             />
