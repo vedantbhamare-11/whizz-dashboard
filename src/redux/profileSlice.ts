@@ -5,14 +5,14 @@ interface Profile {
   name: string;
   email: string;
   phone: string;
-  profilePic: string; // Added field for profile picture
+  profilePic: string;
 }
 
 const initialState: Profile = {
   name: "John Doe",
   email: "johndoe@example.com",
   phone: "9876543210",
-  profilePic: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800", // Default profile picture
+  profilePic: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800",
 };
 
 const profileSlice = createSlice({
@@ -22,11 +22,8 @@ const profileSlice = createSlice({
     updateProfile: (state, action: PayloadAction<Profile>) => {
       return { ...state, ...action.payload };
     },
-    updateProfilePic: (state, action: PayloadAction<string>) => {
-      state.profilePic = action.payload; // Update only the profile picture
-    },
   },
 });
 
-export const { updateProfile, updateProfilePic } = profileSlice.actions;
+export const { updateProfile } = profileSlice.actions;
 export default profileSlice.reducer;
