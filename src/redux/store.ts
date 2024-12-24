@@ -4,7 +4,7 @@ import orderSlice from "./orderSlice";
 import upcomingOrdersSlice from "./upcomingOrdersSlice";
 import orderHistorySlice from "./orderHistorySlice";  // Import the new slice
 import notificationsSlice from './notificationsSlice';  // Import the notifications slice
- 
+import profileSlice from "./profileSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +12,7 @@ const store = configureStore({
     upcomingOrders: upcomingOrdersSlice,
     orderHistory: orderHistorySlice,  // New order history slice
     notifications: notificationsSlice,  // Add notifications reducer
+    profile: profileSlice,
   },
 });
 
