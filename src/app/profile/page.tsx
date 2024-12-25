@@ -51,7 +51,7 @@ const ProfilePage = () => {
 
   const renderProfileContent = () => (
     <Card className="flex justify-center p-6 rounded-lg shadow-sm">
-      <div className="flex space-y-8 flex-col lg:w-[70%] w-full items-center">
+      <div className="flex space-y-8 flex-col lg:w-1/2 w-full items-center">
         <label htmlFor="profile-pic" className="cursor-pointer">
           <div className="relative">
             <Image
@@ -140,7 +140,7 @@ const ProfilePage = () => {
             <Header />
             <main className="flex-1 p-4 mt-[4rem] ml-[6rem]">
               <h1 className="text-2xl font-bold mb-6">Profile</h1>
-              <div className="mt-6 w-[70%]  mx-auto">{renderProfileContent()}</div>
+              <div className="mt-6 w-full  mx-auto">{renderProfileContent()}</div>
             </main>
           </div>
         </div>
