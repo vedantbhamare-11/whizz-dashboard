@@ -166,15 +166,15 @@ const Sidebar = ({ className = "" }: { className?: string }) => {
                 <CircleHelp className={`w-6 h-6 isActive("/help")`} />
               </div>
             </Link>
-            <Link href="/profile">
+            <Link href="/profile-menu">
               <Image
                 src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800"
                 alt="Profile Picture"
-                width={36}
-                height={36}
-                className="rounded-full border-2"
+                width={100}
+                height={100}
+                className="w-8 h-8 rounded-full border-2"
                 style={{
-                  borderColor: isActive("/profile") ? "#3CAE06" : "transparent",
+                  borderColor: isActive("/profile-menu") ? "#3CAE06" : "transparent",
                 }}
               />
             </Link>
