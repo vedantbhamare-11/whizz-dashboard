@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Switch } from "@/components/ui/switch";
 import { CircleHelp } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Function to check if the screen size is mobile
 const isMobile = () => window.innerWidth <= 640;
@@ -52,7 +53,15 @@ const Header = () => {
               id="online-status"
               onCheckedChange={() => setIsOnline(!isOnline)}
             />
-            <CircleHelp className="text-white w-6 h-6" />
+            <Link href="/profile">
+                <Image
+                  src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  alt="Profile Picture"
+                  width={100}
+                  height={100}
+                  className="rounded-full w-8 h-8 border-2"
+                />
+            </Link> 
           </div>
         </div>
       ) : (

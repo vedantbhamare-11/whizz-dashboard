@@ -71,7 +71,18 @@ const Sidebar = ({ className = "" }: { className?: string }) => {
                 />
               </div>
             </Link>
-            <Link href="/profile">
+            <Link href="/settings">
+              <div className="flex flex-col items-center">
+                <Settings
+                  className={`w-6 h-6 ${
+                    isActive("/settings")
+                      ? "text-[#3CAE06]"
+                      : "text-[#808080]"
+                  }`}
+                />
+              </div>
+            </Link>
+            {/* <Link href="/profile">
               <div className="flex flex-col items-center">
                 <Image
                   src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800"
@@ -81,7 +92,7 @@ const Sidebar = ({ className = "" }: { className?: string }) => {
                   className="rounded-full object-cover border-2"
                 />
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       ) : (
