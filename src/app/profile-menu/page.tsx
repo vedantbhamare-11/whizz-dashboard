@@ -43,15 +43,21 @@ const ProfileMenuPage = () => {
       {/* Buttons */}
       <div className="w-full lg:w-1/2">
         <Link href="/edit-profile">
-          <Button
+        <Button
             variant="ghost"
             className="flex items-center justify-between mb-4 w-full px-4 py-3 text-base font-medium text-gray-800 hover:bg-gray-100"
           >
             <div className="flex items-center space-x-3">
-              <SquarePen size={18} />
-              <span>Edit Profile</span>
+              <div className="p-1 border border-gray-300 rounded-full">
+              <SquarePen size={16} color="gray"/>
+
+              </div>
+              <div>
+              <span className="font-semibold">Edit Profile</span>
+
+              </div>
             </div>
-            <ChevronRight size={18} />
+            <ChevronRight color="gray" size={18} />
           </Button>
         </Link>
 
@@ -61,23 +67,35 @@ const ProfileMenuPage = () => {
             className="flex items-center justify-between mb-4 w-full px-4 py-3 text-base font-medium text-gray-800 hover:bg-gray-100"
           >
             <div className="flex items-center space-x-3">
-              <CircleHelp size={18} />
-              <span>Help Center</span>
+              <div className="p-1 border border-gray-300 rounded-full">
+              <CircleHelp size={18} color="gray"/>
+
+              </div>
+              <div>
+              <span className="font-semibold">Help Center</span>
+
+              </div>
             </div>
-            <ChevronRight size={18} />
+            <ChevronRight color="gray" size={18} />
           </Button>
         </Link>
 
         <Link href="/">
-          <Button
+        <Button
             variant="ghost"
-            className="flex items-center justify-between w-full mb-4 px-4 py-3 text-base font-medium text-gray-800 hover:bg-gray-100"
+            className="flex items-center justify-between mb-4 w-full px-4 py-3 text-base font-medium text-gray-800 hover:bg-gray-100"
           >
             <div className="flex items-center space-x-3">
-              <LogOut size={18} />
-              <span>Logout</span>
+              <div className="p-1 border border-gray-300 rounded-full">
+              <LogOut size={18} color="gray"/>
+
+              </div>
+              <div>
+              <span className="font-semibold">Logout</span>
+
+              </div>
             </div>
-            <ChevronRight size={18} />
+            <ChevronRight color="gray" size={18} />
           </Button>
         </Link>
       </div>

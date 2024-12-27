@@ -82,17 +82,7 @@ const Sidebar = ({ className = "" }: { className?: string }) => {
                 />
               </div>
             </Link>
-            {/* <Link href="/profile">
-              <div className="flex flex-col items-center">
-                <Image
-                  src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Profile Picture"
-                  width={32}
-                  height={32}
-                  className="rounded-full object-cover border-2"
-                />
-              </div>
-            </Link> */}
+         
           </div>
         </div>
       ) : (
