@@ -22,7 +22,7 @@ const AppearanceSettings: React.FC<AppearanceSettingsProps> = ({
       <div>
         <p className="text-sm font-medium mb-4">Color Theme</p>
         <Tabs defaultValue={theme} onValueChange={onThemeChange} className="flex justify-center w-full">
-          <TabsList className="w-full flex space-x-2">
+          <TabsList className="w-full bg-white border border-gray-200 flex space-x-2">
             <TabsTrigger
               value="light"
               className="w-full text-sm font-medium rounded-md hover:bg-gray-100 data-[state=active]:bg-[#3CAE06] data-[state=active]:text-white"
