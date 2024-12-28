@@ -1,4 +1,3 @@
-// AppearanceSettings.tsx
 "use client";
 
 import { Card } from "@/components/ui/card";
@@ -18,7 +17,7 @@ const AppearanceSettings: React.FC<AppearanceSettingsProps> = ({
 }) => {
   return (
     <Card className="p-6 space-y-8">
-      <h2 className="text-lg font-bold text-center">Appearance Settings</h2>
+      <h2 className="text-lg font-bold lg:text-center">Appearance</h2>
       <div>
         <p className="text-sm font-medium mb-4">Color Theme</p>
         <Tabs defaultValue={theme} onValueChange={onThemeChange} className="flex justify-center w-full">
@@ -47,7 +46,7 @@ const AppearanceSettings: React.FC<AppearanceSettingsProps> = ({
       <div className="flex justify-center">
         <Button
           onClick={onSave}
-          className="w-1/2 rounded-full bg-[#3CAE06] text-white hover:bg-green-700"
+          className="lg:w-1/2 w-full rounded-full bg-[#3CAE06] text-white hover:bg-green-700"
         >
           Save Appearance Settings
         </Button>
