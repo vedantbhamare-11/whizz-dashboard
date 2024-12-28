@@ -8,6 +8,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import { Button } from "@/components/ui/button";
 import { SquarePen, CircleHelp, LogOut, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const isMobile = () => window.innerWidth <= 820;
 
@@ -28,7 +29,7 @@ const ProfileMenuPage = () => {
     <div className="flex flex-col items-center space-y-6">
       {/* Profile Picture */}
       <div className="relative">
-        <img
+        <Image
           src={profilePic}
           alt="Profile"
           className="lg:w-36 lg:h-36 w-24 h-24 rounded-full object-cover border border-gray-200"
