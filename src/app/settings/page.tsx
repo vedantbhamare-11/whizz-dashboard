@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
+import NotificationsSettings from "@/components/settings/NotificationsSettings";
+import SecuritySettings from "@/components/settings/SecuritySettings";
+import AppearanceSettings from "@/components/settings/AppearanceSettings";
 
 const SettingsPage = () => {
   const [notificationSettings, setNotificationSettings] = useState({
@@ -15,15 +15,41 @@ const SettingsPage = () => {
     systemUpdates: true,
   });
 
-  const handleSwitchChange = (setting: keyof typeof notificationSettings) => {
+  const [securitySettings, setSecuritySettings] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+    twoFactorAuthentication: false,
+  });
+
+  const [appearanceSettings, setAppearanceSettings] = useState("light");
+
+  const handleNotificationSwitchChange = (
+    setting: keyof typeof notificationSettings
+  ) => {
     setNotificationSettings((prev) => ({
       ...prev,
       [setting]: !prev[setting],
     }));
   };
 
+  const handleSecurityChange = (
+    field: keyof typeof securitySettings,
+    value: string | boolean
+  ) => {
+    setSecuritySettings((prev) => ({ ...prev, [field]: value }));
+  };
+
   const handleSaveNotifications = () => {
     console.log("Notification Settings Saved:", notificationSettings);
+  };
+
+  const handleSaveSecurity = () => {
+    console.log("Security Settings Saved:", securitySettings);
+  };
+
+  const handleSaveAppearance = () => {
+    console.log("Appearance Settings Saved:", appearanceSettings);
   };
 
   return (
@@ -55,75 +81,26 @@ const SettingsPage = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="notifications">
-                <Card className="p-6 space-y-6">
-                    <div>
-                    <h2 className="text-lg font-bold text-center mb-2">Notifications</h2>
-                    <h3 className="text-sm text-gray-500 text-center">Email Notifications</h3>
-                    </div>
-                  
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">New Organization Registrations</p>
-                        <p className="text-xs text-gray-500">
-                          Receive emails for new Organization sign-ups
-                        </p>
-                      </div>
-                      <Switch
-                        checked={notificationSettings.newOrganizationRegistrations}
-                        onCheckedChange={() =>
-                          handleSwitchChange("newOrganizationRegistrations")
-                        }
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">New Feedback Submissions</p>
-                        <p className="text-xs text-gray-500">
-                          Get notified when new feedback is submitted
-                        </p>
-                      </div>
-                      <Switch
-                        checked={notificationSettings.newFeedbackSubmissions}
-                        onCheckedChange={() =>
-                          handleSwitchChange("newFeedbackSubmissions")
-                        }
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">System Updates</p>
-                        <p className="text-xs text-gray-500">
-                          Receive important system update notifications
-                        </p>
-                      </div>
-                      <Switch
-                        checked={notificationSettings.systemUpdates}
-                        onCheckedChange={() => handleSwitchChange("systemUpdates")}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex justify-center ">
-                  <Button
-                    onClick={handleSaveNotifications}
-                    className="w-1/2 rounded-full bg-[#3CAE06] text-white hover:bg-green-700"
-                  >
-                    Save Notification Settings
-                  </Button>
-                  </div>
-                 
-                </Card>
+                <NotificationsSettings
+                  settings={notificationSettings}
+                  onSwitchChange={handleNotificationSwitchChange}
+                  onSave={handleSaveNotifications}
+                />
               </TabsContent>
               <TabsContent value="security">
-                <Card className="p-6 space-y-6">
-                  <h2 className="text-lg font-bold text-center">Security Settings</h2>
-                </Card>
+                <SecuritySettings
+                  settings={securitySettings}
+                  onInputChange={handleSecurityChange}
+                  onSwitchChange={handleSecurityChange}
+                  onSave={handleSaveSecurity}
+                />
               </TabsContent>
               <TabsContent value="appearance">
-                <Card className="p-6 space-y-6">
-                  <h2 className="text-lg font-bold text-center">Appearance Settings</h2>
-                </Card>
+                <AppearanceSettings
+                  theme={appearanceSettings}
+                  onThemeChange={setAppearanceSettings}
+                  onSave={handleSaveAppearance}
+                />
               </TabsContent>
             </Tabs>
           </div>
