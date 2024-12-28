@@ -1,4 +1,3 @@
-// NotificationsSettings.tsx
 "use client";
 
 import { Card } from "@/components/ui/card";
@@ -23,16 +22,15 @@ const NotificationsSettings: React.FC<NotificationSettingsProps> = ({
   return (
     <Card className="p-6 space-y-6">
       <div>
-        <h2 className="text-lg font-bold text-center mb-2">Notifications</h2>
-        <h3 className="text-sm text-gray-500 text-center">Email Notifications</h3>
+      <h2 className="text-lg font-bold lg:text-center">Notifications</h2>
+      <h3 className="text-sm text-gray-500 lg:text-center mt-2">Email Notifications</h3>
       </div>
+      
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium">New Organization Registrations</p>
-            <p className="text-xs text-gray-500">
-              Receive emails for new Organization sign-ups
-            </p>
+            <p className="text-xs text-gray-500">Receive emails for new organization sign-ups</p>
           </div>
           <Switch
             checked={settings.newOrganizationRegistrations}
@@ -42,9 +40,7 @@ const NotificationsSettings: React.FC<NotificationSettingsProps> = ({
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium">New Feedback Submissions</p>
-            <p className="text-xs text-gray-500">
-              Get notified when new feedback is submitted
-            </p>
+            <p className="text-xs text-gray-500">Get notified when new feedback is submitted</p>
           </div>
           <Switch
             checked={settings.newFeedbackSubmissions}
@@ -54,9 +50,7 @@ const NotificationsSettings: React.FC<NotificationSettingsProps> = ({
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium">System Updates</p>
-            <p className="text-xs text-gray-500">
-              Receive important system update notifications
-            </p>
+            <p className="text-xs text-gray-500">Receive important system update notifications</p>
           </div>
           <Switch
             checked={settings.systemUpdates}
@@ -67,7 +61,7 @@ const NotificationsSettings: React.FC<NotificationSettingsProps> = ({
       <div className="flex justify-center">
         <Button
           onClick={onSave}
-          className="w-1/2 rounded-full bg-[#3CAE06] text-white hover:bg-green-700"
+          className="lg:w-1/2 w-full rounded-full bg-[#3CAE06] text-white hover:bg-green-700"
         >
           Save Notification Settings
         </Button>
