@@ -1,4 +1,3 @@
-// SecuritySettings.tsx
 "use client";
 
 import { Card } from "@/components/ui/card";
@@ -27,7 +26,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({
 }) => {
   return (
     <Card className="p-6 space-y-6">
-      <h2 className="text-lg font-bold text-center">Security Settings</h2>
+      <h2 className="text-lg font-bold lg:text-center">Security</h2>
       <div className="space-y-4">
         <div>
           <Label htmlFor="current-password">Current Password</Label>
@@ -69,7 +68,7 @@ const SecuritySettings: React.FC<SecuritySettingsProps> = ({
       <div className="flex justify-center">
         <Button
           onClick={onSave}
-          className="w-1/2 rounded-full bg-[#3CAE06] text-white hover:bg-green-700"
+          className="lg:w-1/2 w-full rounded-full bg-[#3CAE06] text-white hover:bg-green-700"
         >
           Save Security Settings
         </Button>
