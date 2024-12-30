@@ -31,6 +31,8 @@ const ProfileMenuPage = () => {
       <div className="relative">
         <Image
           src={profilePic}
+          width={100}
+          height={100}
           alt="Profile"
           className="lg:w-36 lg:h-36 w-24 h-24 rounded-full object-cover border border-gray-200"
         />
