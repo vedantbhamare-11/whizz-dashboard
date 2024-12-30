@@ -1,10 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import "../../../dist/style.css";
-import { OlaMaps } from "../../../dist/olamaps-js-sdk.es";
+import { OlaMaps } from "../../../dist/olamaps-js-sdk.es"; // Adjust based on actual export
+
+// Define a custom type for the map instance
+interface MapInstance {
+  setCenter: (coords: [number, number]) => void;
+  setZoom: (level: number) => void;
+}
 
 const MapSection = () => {
-  const [map, setMap] = useState<any>(null);
+  const [map, setMap] = useState<MapInstance | null>(null);
 
   useEffect(() => {
     const olaMaps = new OlaMaps({
@@ -20,7 +26,7 @@ const MapSection = () => {
     };
 
     // Initialize the map and save the reference
-    const myMap = olaMaps.init(mapConfig);
+    const myMap = olaMaps.init(mapConfig) as MapInstance;
     setMap(myMap);
 
     // Use Geolocation API to get the user's current location
@@ -31,55 +37,22 @@ const MapSection = () => {
 
           // Update the map center to the user's location
           myMap.setCenter([longitude, latitude]);
-          myMap.setZoom(15); // Adjust zoom level for better visibility
+          myMap.setZoom(15);
 
           // Add a marker at the user's location
-          const marker = olaMaps
-            .addMarker({
-              offset: [0, -10], // Adjust the marker position offset
-              anchor: "bottom", // Anchor position for the marker
-            })
-            .setLngLat([longitude, latitude]) // Set marker location
+          olaMaps
+            .addMarker({ offset: [0, -10], anchor: "bottom" })
+            .setLngLat([longitude, latitude])
             .addTo(myMap);
-
-          if (!marker) {
-            console.error("Marker could not be added");
-          }
         },
         (error) => {
           console.error("Error getting user's location:", error);
-
-          // Handle error and fallback to default coordinates
-          myMap.setCenter([13.0849, 80.2065]); // Fallback to default coordinates
-          myMap.setZoom(10);
         }
       );
     } else {
       console.error("Geolocation is not supported by this browser.");
-
-      // Fallback to default coordinates
-      myMap.setCenter([13.0849, 80.2065]);
-      myMap.setZoom(10);
     }
   }, []);
-
-  useEffect(() => {
-    // Refresh the map's center if geolocation permissions are granted after initial load
-    if (map && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-
-          // Re-center the map
-          map.setCenter([longitude, latitude]);
-          map.setZoom(15);
-        },
-        (error) => {
-          console.error("Error refreshing location:", error);
-        }
-      );
-    }
-  }, [map]);
 
   return (
     <div className="mt-6 w-full bg-gray-200 rounded-2xl overflow-hidden lg:h-[450px] h-[500px]">
