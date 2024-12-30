@@ -38,9 +38,9 @@ const Header = () => {
             <Image
               src="/whizz_logo_white.png"
               alt="Whizz Logo"
-              width={60}
-              height={24}
-              className="object-contain"
+              width={100}
+              height={100}
+              className="object-contain w-16 h-8"
             />
           </div>
 

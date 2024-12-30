@@ -96,9 +96,9 @@ const Sidebar = ({ className = "" }: { className?: string }) => {
               <Image
                 src="/whizz_logo_black.png"
                 alt="Whizz Logo"
-                width={60}
-                height={24}
-                className="object-contain mb-6"
+                width={100}
+                height={100}
+                className="object-contain mb-6 w-16 h-8"
               />
             </div>
             <nav className="flex flex-col items-center space-y-6">
