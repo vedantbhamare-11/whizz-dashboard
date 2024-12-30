@@ -85,42 +85,44 @@ const OrderSection = () => {
               className="p-4 border border-gray-200 rounded-md bg-white space-y-4"
             >
               {/* Header */}
-              <div className="flex justify-between items-center">
-                <div className="flex space-x-2">
-                <Badge
-                    className={`text-black font-normal ${
-                      order.type === OrderType.FOOD
-                        ? `bg-[${OrderColors.FOOD}]`
-                        : order.type === OrderType.MEDICINE
-                        ? `bg-[${OrderColors.MEDICINE}]`
-                        : `bg-[${OrderColors.CUSTOM_PACKAGE}]`
-                    }`}
-                  >
-                    {order.type}
-                  </Badge>
-                  <Badge
-                    className={`text-black font-normal ${
-                      order.status === OrderStatus.IN_PROGRESS
-                        ? `bg-[${OrderStatusColors.IN_PROGRESS}]`
-                        : `bg-[${OrderStatusColors.PENDING}]`
-                    }`}
-                  >
-                    {order.status}
-                  </Badge>
-                  <Badge
-                    className={`text-black font-normal ${
-                      order.paymentType === PaymentType.CASH_ON_DELIVERY
-                        ? `bg-[${PaymentTypeColors.CASH_ON_DELIVERY}]`
-                        : `bg-[${PaymentTypeColors.PREPAID}]`
-                    }`}
-                  >
-                    {order.paymentType}
-                  </Badge>
+                <div className="flex space-x-2 grid grid-cols-2 ">
+                  <div className="flex justify-start items-start flex-col space-y-2 ">
+                    <Badge
+                      className={`text-black font-normal ${
+                        order.type === OrderType.FOOD
+                          ? `bg-[${OrderColors.FOOD}]`
+                          : order.type === OrderType.MEDICINE
+                          ? `bg-[${OrderColors.MEDICINE}]`
+                          : `bg-[${OrderColors.CUSTOM_PACKAGE}]`
+                      }`}
+                    >
+                      {order.type}
+                    </Badge>
+                    <Badge
+                      className={`text-black font-normal ${
+                        order.status === OrderStatus.IN_PROGRESS
+                          ? `bg-[${OrderStatusColors.IN_PROGRESS}]`
+                          : `bg-[${OrderStatusColors.PENDING}]`
+                      }`}
+                    >
+                      {order.status}
+                    </Badge>
+                  </div>
+                  <div className="flex justify-end items-end flex-col space-y-2  ">
+                    <div className="text-sm text-[#808080]">
+                      {format(new Date(), "dd/MM/yyyy")}
+                    </div>
+                    <Badge
+                      className={`text-black font-normal ${
+                        order.paymentType === PaymentType.CASH_ON_DELIVERY
+                          ? `bg-[${PaymentTypeColors.CASH_ON_DELIVERY}]`
+                          : `bg-[${PaymentTypeColors.PREPAID}]`
+                      }`}
+                    >
+                      {order.paymentType}
+                    </Badge>
+                  </div>
                 </div>
-                <div className="text-sm text-[#808080]">
-                  {format(new Date(), "dd/MM/yyyy")}
-                </div>
-              </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -264,8 +266,7 @@ const OrderSection = () => {
                 </div>
 
                 <div className="flex items-center space-x-4">
-                  
-                   <Badge
+                  <Badge
                     className={`text-black text-sm font-normal ${
                       order.type === OrderType.FOOD
                         ? `bg-[${OrderColors.FOOD}]`
@@ -296,7 +297,7 @@ const OrderSection = () => {
                   </Badge>
                   <div className="text-sm text-[#808080]">
                     {format(new Date(), "dd/MM/yyyy")}
-                   </div>
+                  </div>
                 </div>
               </div>
 
