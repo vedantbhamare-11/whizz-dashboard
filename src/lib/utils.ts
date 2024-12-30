@@ -45,7 +45,7 @@ export const OrderColors = {
 };
 
 export const OrderStatusColors = {
-  IN_PROGRESS: "#FFE18E",
+  IN_PROGRESS: "#D8FFC6",
   PENDING: "#E8E8E8",
 };
 
